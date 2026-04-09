@@ -2,593 +2,671 @@
 <html lang="id">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#6366f1" />
-    <link rel="icon" href="icons/icon-192x192-A.png" type="image/png" />
-    <!-- ini untuk melihat gambar -->
-    <link rel="manifest" href="manifest.json">
-    <!-- settingan untuk pwa builder yaitu mode hp, pwa builder adalah sebuah website untuk build menjadi app -->
-    <title>TaskFlow - Kelola Tugas Anda</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#6B5B95" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icons/icon-192x192-A.png" type="image/png" />
+  <title>NandurKarya - Portofolio Pengrajin Kustom</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Google Fonts Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg-offwhite: #F8F9FA;
+      --card-white: #FFFFFF;
+      --soft-lavender: #E6E6FA;
+      --lavender-hover: #D8D8F0;
+      --primary-purple: #6B5B95;
+      --primary-dark: #5A4A7A;
+      --text-dark: #2C2C2C;
+      --text-gray: #6C6C6C;
+      --border-light: #E5E5E5;
+    }
 
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --primary-light: #818cf8;
-            --bg-dark: #ffffff;
-            --bg-card: #1e293b;
-            --text-light: #f8fafc;
-            --text-gray: #cbd5e1;
-            --success: #22c55e;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, var(--bg-dark) 0%, #1856bb 100%);
-            color: var(--text-light);
-            min-height: 100vh;
-            padding-bottom: 80px;
-        }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg-offwhite);
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
 
-        .header {
-            background: #1856bb;
-            backdrop-filter: blur(10px);
-            padding: 20px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-        }
+    /* Header Styles */
+    .header {
+      background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 3rem 0 2.5rem;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
 
-        .header-content {
-            max-width: 800px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -10%;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+    }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -5%;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+    }
 
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
-        }
+    .header-content {
+      position: relative;
+      z-index: 1;
+    }
 
-        h1 {
-            font-size: 24px;
-            font-weight: 700;
-        }
+    .brand h1 {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.5px;
+    }
 
-        .stats {
-            display: flex;
-            gap: 16px;
-            font-size: 14px;
-            color: var(--text-gray);
-        }
+    .brand p {
+      font-size: 1rem;
+      font-weight: 300;
+      opacity: 0.9;
+      margin-bottom: 0;
+    }
 
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
+    /* Search Section */
+    .search-section {
+      margin-bottom: 2.5rem;
+    }
 
-        .stat-number {
-            color: var(--primary-light);
-            font-weight: 700;
-        }
+    .search-wrapper {
+      position: relative;
+      max-width: 500px;
+      margin: 0 auto;
+    }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 24px 20px;
-        }
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-gray);
+      font-size: 1rem;
+    }
 
-        .input-section {
-            background: var(--bg-card);
-            padding: 24px;
-            border-radius: 16px;
-            margin-bottom: 24px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(99, 102, 241, 0.1);
-        }
+    .search-input {
+      width: 100%;
+      padding: 0.9rem 1rem 0.9rem 2.8rem;
+      border: 2px solid var(--border-light);
+      border-radius: 50px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+      background: var(--card-white);
+    }
 
-        .input-group {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary-purple);
+      box-shadow: 0 0 0 3px rgba(107, 91, 149, 0.1);
+    }
 
-        input[type="text"] {
-            flex: 1;
-            padding: 14px 18px;
-            background: var(--bg-dark);
-            border: 2px solid rgba(99, 102, 241, 0.3);
-            border-radius: 12px;
-            color: var(--text-light);
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
+    /* Card Styles */
+    .portfolio-card {
+      background: var(--card-white);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
 
-        input[type="text"]:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-        }
+    .portfolio-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+    }
 
-        .btn {
-            padding: 14px 28px;
-            border: none;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
+    .card-image-wrapper {
+      position: relative;
+      padding-top: 75%;
+      overflow: hidden;
+      background: #f0f0f0;
+    }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary), var(--primary-light));
-            color: white;
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
-        }
+    .card-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
-        }
+    .portfolio-card:hover .card-image {
+      transform: scale(1.05);
+    }
 
-        .btn-primary:active {
-            transform: translateY(0);
-        }
+    .card-category {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      color: var(--primary-dark);
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      backdrop-filter: blur(4px);
+      background: rgba(230, 230, 250, 0.95);
+    }
 
-        .priority-selector {
-            display: flex;
-            gap: 8px;
-        }
+    .card-content {
+      padding: 1.25rem;
+      flex: 1;
+    }
 
-        .priority-btn {
-            flex: 1;
-            padding: 10px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            background: transparent;
-            color: var(--text-gray);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 14px;
-        }
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-dark);
+    }
 
-        .priority-btn.active {
-            border-color: currentColor;
-            background: rgba(255, 255, 255, 0.1);
-            font-weight: 600;
-        }
+    .card-description {
+      font-size: 0.85rem;
+      color: var(--text-gray);
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
 
-        .priority-btn.high {
-            color: var(--danger);
-        }
+    .card-footer-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-light);
+      font-size: 0.75rem;
+      color: var(--text-gray);
+    }
 
-        .priority-btn.medium {
-            color: var(--warning);
-        }
+    .card-service-type {
+      background: var(--bg-offwhite);
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 500;
+    }
 
-        .priority-btn.low {
-            color: var(--success);
-        }
+    /* Modal Styles */
+    .modal-content {
+      border-radius: 20px;
+      border: none;
+    }
 
-        .filter-tabs {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-        }
+    .modal-header {
+      border-bottom: 1px solid var(--border-light);
+      padding: 1.25rem 1.5rem;
+    }
 
-        .filter-tab {
-            padding: 10px 20px;
-            background: var(--bg-card);
-            border: 2px solid transparent;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            font-size: 14px;
-            font-weight: 500;
-            color: #ffffff;
-        }
+    .modal-title {
+      font-weight: 600;
+      color: var(--text-dark);
+    }
 
-        .filter-tab.active {
-            background: var(--primary);
-            border-color: var(--primary-light);
-            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
-        }
+    .modal-body {
+      padding: 1.5rem;
+    }
 
-        .tasks-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+    .modal-project-image {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 1.25rem;
+    }
 
-        .task-item {
-            background: var(--bg-card);
-            padding: 20px;
-            border-radius: 12px;
-            border-left: 4px solid;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            transition: all 0.3s ease;
-            animation: slideIn 0.3s ease;
-        }
+    .modal-project-description {
+      color: var(--text-gray);
+      margin-bottom: 1rem;
+      line-height: 1.7;
+    }
 
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
+    .modal-project-meta {
+      background: var(--bg-offwhite);
+      padding: 1rem;
+      border-radius: 12px;
+      margin-top: 1rem;
+    }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    .modal-project-meta p {
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
 
-        .task-item:hover {
-            transform: translateX(4px);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-        }
+    .modal-project-meta strong {
+      color: var(--text-dark);
+    }
 
-        .task-item.high {
-            border-left-color: var(--danger);
-        }
+    .modal-footer {
+      border-top: 1px solid var(--border-light);
+      padding: 1rem 1.5rem;
+    }
 
-        .task-item.medium {
-            border-left-color: var(--warning);
-        }
+    .btn-primary {
+      background: var(--primary-purple);
+      border: none;
+      padding: 0.6rem 1.25rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      border-radius: 50px;
+      transition: all 0.2s ease;
+    }
 
-        .task-item.low {
-            border-left-color: var(--success);
-        }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
 
-        .task-checkbox {
-            width: 24px;
-            height: 24px;
-            border: 2px solid var(--primary);
-            border-radius: 6px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            transition: all 0.3s ease;
-        }
+    .btn-secondary {
+      background: var(--bg-offwhite);
+      border: 1px solid var(--border-light);
+      color: var(--text-dark);
+      padding: 0.6rem 1.25rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      border-radius: 50px;
+    }
 
-        .task-checkbox:hover {
-            background: rgba(99, 102, 241, 0.1);
-        }
+    .btn-secondary:hover {
+      background: var(--border-light);
+      color: var(--text-dark);
+    }
 
-        .task-checkbox.checked {
-            background: var(--primary);
-        }
+    /* Footer */
+    .footer {
+      background: var(--primary-dark);
+      color: white;
+      text-align: center;
+      padding: 1.5rem 0;
+      margin-top: 3rem;
+    }
 
-        .task-content {
-            flex: 1;
-        }
+    .footer p {
+      margin-bottom: 0;
+      font-size: 0.85rem;
+      opacity: 0.8;
+    }
 
-        .task-text {
-            font-size: 16px;
-            margin-bottom: 4px;
-        }
+    /* Responsive Grid */
+    @media (max-width: 768px) {
+      .header {
+        padding: 2rem 0 1.5rem;
+      }
+      
+      .brand h1 {
+        font-size: 1.75rem;
+      }
+      
+      .brand p {
+        font-size: 0.85rem;
+      }
+      
+      .card-title {
+        font-size: 1rem;
+      }
+      
+      .gallery-section .row {
+        margin: 0;
+      }
+    }
 
-        .task-text.completed {
-            text-decoration: line-through;
-            opacity: 0.6;
-        }
+    @media (min-width: 768px) and (max-width: 992px) {
+      .portfolio-card {
+        font-size: 0.9rem;
+      }
+    }
 
-        .task-meta {
-            display: flex;
-            gap: 12px;
-            font-size: 12px;
-            color: var(--text-gray);
-        }
+    /* Animation for cards */
+    .portfolio-card {
+      animation: fadeInUp 0.4s ease backwards;
+    }
 
-        .task-time {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-        .task-actions {
-            display: flex;
-            gap: 8px;
-        }
+    /* No results state */
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      color: var(--text-gray);
+      background: var(--card-white);
+      border-radius: 16px;
+    }
 
-        .btn-icon {
-            width: 36px;
-            height: 36px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            font-size: 18px;
-        }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
 
-        .btn-delete {
-            background: rgba(239, 68, 68, 0.1);
-            color: var(--danger);
-        }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-offwhite);
+    }
 
-        .btn-delete:hover {
-            background: var(--danger);
-            color: white;
-        }
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary-purple);
+      border-radius: 4px;
+    }
 
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-gray);
-        }
-
-        .empty-icon {
-            font-size: 64px;
-            margin-bottom: 16px;
-            opacity: 0.5;
-        }
-
-        .progress-bar {
-            background: var(--bg-card);
-            height: 8px;
-            border-radius: 4px;
-            overflow: hidden;
-            margin: 16px 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--primary-light));
-            transition: width 0.5s ease;
-            border-radius: 4px;
-        }
-
-        @media (max-width: 640px) {
-            .header-content {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .input-group {
-                flex-direction: column;
-            }
-
-            .stats {
-                width: 100%;
-                justify-content: space-around;
-            }
-        }
-
-        .logo h1 {
-            font-size: 50px;
-            font-weight: 800;
-        }
-    </style>
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary-dark);
+    }
+  </style>
 </head>
 
 <body>
-    <header class="header">
-        <div class="header-content">
-            <div class="logo">
-                <div class="logo-icon">✓</div>
-                <h1 class="text-judul">TaskFlow</h1>
-            </div>
-            <div class="stats">
-                <div class="stat-item">
-                    <span>📝</span>
-                    <span>Total: <span class="stat-number" id="totalTasks">0</span></span>
-                </div>
-                <div class="stat-item">
-                    <span>✅</span>
-                    <span>Selesai: <span class="stat-number" id="completedTasks">0</span></span>
-                </div>
-            </div>
-        </div>
-    </header>
-
+  <header class="header">
     <div class="container">
-        <div class="input-section">
-            <div class="input-group">
-                <input type="text" id="taskInput" placeholder="Tambahkan tugas baru..."
-                    onkeypress="if(event.key==='Enter') addTask()" />
-                <button class="btn btn-primary" onclick="addTask()">
-                    <span>➕</span>
-                    <span>Tambah</span>
-                </button>
-            </div>
-            <div class="priority-selector">
-                <button class="priority-btn high" onclick="setPriority('high')">🔴 Tinggi</button>
-                <button class="priority-btn medium active" onclick="setPriority('medium')">🟡 Sedang</button>
-                <button class="priority-btn low" onclick="setPriority('low')">🟢 Rendah</button>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressBar" style="width: 0%"></div>
-            </div>
+      <div class="header-content">
+        <div class="brand">
+          <h1>NandurKarya</h1>
+          <p>Portofolio Digital Pengrajin Kustom</p>
         </div>
-
-        <div class="filter-tabs">
-            <button class="filter-tab active" onclick="filterTasks('all')">Semua</button>
-            <button class="filter-tab" onclick="filterTasks('active')">Aktif</button>
-            <button class="filter-tab" onclick="filterTasks('completed')">Selesai</button>
-            <button class="filter-tab" onclick="filterTasks('high')">🔴 Prioritas Tinggi</button>
-            <button class="filter-tab" onclick="filterTasks('medium')">🟡 Prioritas Sedang</button>
-            <button class="filter-tab" onclick="filterTasks('low')">🟢 Prioritas Rendah</button>
-        </div>
-
-        <div class="tasks-list" id="tasksList"></div>
+      </div>
     </div>
+  </header>
 
-    <script>
-        let tasks = [];
-        let currentPriority = 'medium';
-        let currentFilter = 'all';
+  <main class="main">
+    <div class="container">
+      <!-- Search Section -->
+      <section class="search-section">
+        <div class="search-wrapper">
+          <i class="fas fa-search search-icon"></i>
+          <input type="text" id="searchInput" class="search-input" placeholder="Cari proyek atau jasa...">
+        </div>
+      </section>
 
-        function loadTasks() {
-            const saved = localStorage.getItem('taskflow_tasks');
-            if (saved) {
-                tasks = JSON.parse(saved);
-                renderTasks();
-            }
-        }
+      <!-- Gallery Container -->
+      <section class="gallery-section">
+        <div class="row g-4" id="portfolioGallery"></div>
+      </section>
+    </div>
+  </main>
 
-        function saveTasks() {
-            localStorage.setItem('taskflow_tasks', JSON.stringify(tasks));
-        }
+  <!-- Modal Detail -->
+  <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="projectModalLabel">Detail Proyek</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="modalBody">
+          <!-- Dynamic content -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="button" class="btn btn-primary" id="modalWhatsAppBtn">Hubungi via WhatsApp</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-        function setPriority(priority) {
-            currentPriority = priority;
-            document.querySelectorAll('.priority-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-        }
+  <footer class="footer">
+    <div class="container">
+      <p>2025 NandurKarya. Membangun Karya Pengrajin Indonesia.</p>
+    </div>
+  </footer>
 
-        function addTask() {
-            const input = document.getElementById('taskInput');
-            const text = input.value.trim();
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <script>
+    // Portfolio Data - 6 contoh proyek pengrajin kustom
+    const portfolioData = [
+      {
+        id: 1,
+        title: "Kanopi Minimalis Modern",
+        category: "Bengkel Las",
+        serviceType: "Arsitektur dan Konstruksi",
+        shortDesc: "Kanopi besi dengan desain minimalis modern, menggunakan material hollow hitam doff dan atap polycarbonate solid.",
+        fullDesc: "Proyek kanopi minimalis modern ini dikerjakan untuk klien perumahan di daerah Sleman. Dengan lebar 4 meter dan panjang 6 meter, kanopi ini didesain untuk menampung 2 mobil sekaligus. Material utama menggunakan besi hollow 4x4 dengan ketebalan 1.6mm, dicat dengan powder coating warna hitam doff untuk kesan elegan. Atap menggunakan polycarbonate solid 3mm yang tahan panas dan tidak mudah pecah. Pengerjaan memakan waktu 7 hari kerja, termasuk proses pengelasan, perakitan, dan finishing. Hasil akhir sangat memuaskan klien karena kokoh dan estetis.",
+        image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&h=450&fit=crop",
+        date: "Desember 2024",
+        location: "Sleman, Yogyakarta"
+      },
+      {
+        id: 2,
+        title: "Kebaya Encim Brokat",
+        category: "Penjahit",
+        serviceType: "Fashion dan Busana",
+        shortDesc: "Kebaya encim modern dengan bahan brokat premium, dipadukan dengan kain batik tulis.",
+        fullDesc: "Kebaya encim ini dipesan untuk acara pernikahan adat Betawi. Menggunakan bahan brokat premium dengan motif bunga yang lembut, dipadukan dengan kain batik tulis khas Solo. Proses pembuatan memakan waktu 2 minggu dengan detail sulam tangan pada bagian kerah dan ujung lengan. Hasil akhir sangat memuaskan dengan fitting sempurna dan kenyamanan maksimal saat dikenakan.",
+        image: "https://images.unsplash.com/photo-1612198188061-c98c29a7a9fd?w=600&h=450&fit=crop",
+        date: "November 2024",
+        location: "Bantul, Yogyakarta"
+      },
+      {
+        id: 3,
+        title: "Meja Makan Solid Jati",
+        category: "Pengrajin Kayu",
+        serviceType: "Furniture Kustom",
+        shortDesc: "Meja makan dari kayu jati solid ukuran 160x90cm dengan finishing natural yang menonjolkan serat kayu asli.",
+        fullDesc: "Meja makan jati solid ini dibuat dari kayu jati grade A dengan umur pohon di atas 30 tahun. Proses pembuatan dilakukan secara manual dengan teknik sambungan kayu tradisional tanpa paku. Finishing menggunakan polyurethane clear coat yang aman untuk makanan. Meja ini memiliki ketahanan terhadap rayap dan perubahan cuaca. Dikombinasikan dengan 6 kursi jati dengan desain yang matching.",
+        image: "https://images.unsplash.com/photo-1530018604532-134f2ac969a8?w=600&h=450&fit=crop",
+        date: "Oktober 2024",
+        location: "Jepara, Jawa Tengah"
+      },
+      {
+        id: 4,
+        title: "Tas Selempang Kulit Vintage",
+        category: "Pengrajin Kulit",
+        serviceType: "Kerajinan Kulit",
+        shortDesc: "Tas selempang pria dari kulit sapi full grain dengan pewarnaan natural dan jahitan tangan detail.",
+        fullDesc: "Tas selempang ini dibuat menggunakan kulit sapi full grain pilihan yang diproses secara vegetable tanning. Setiap tas melalui proses pengecatan tangan dengan pewarna natural sehingga menghasilkan warna yang unik dan tidak sama persis antar produk. Terdapat 3 kompartemen utama dan 2 saku kecil untuk kartu dan handphone. Jahitan menggunakan benang lilin yang kuat dengan teknik saddle stitch yang terkenal tahan lama.",
+        image: "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=600&h=450&fit=crop",
+        date: "September 2024",
+        location: "Garut, Jawa Barat"
+      },
+      {
+        id: 5,
+        title: "Pagar Besi Tempa Minimalis",
+        category: "Bengkel Las",
+        serviceType: "Arsitektur dan Konstruksi",
+        shortDesc: "Pagar besi tempa dengan desain minimalis modern, dilengkapi ornamen geometris dan finishing anti karat.",
+        fullDesc: "Proyek pagar besi tempa untuk rumah minimalis 2 lantai ini memiliki panjang 12 meter dengan tinggi 1.5 meter. Desain menggabungkan garis vertikal bersih dengan ornamen geometris yang artistik. Setiap sambungan dilas dengan presisi dan dihaluskan sebelum proses pengecatan. Finishing menggunakan powder coating warna hitam matte dengan 3 lapis untuk ketahanan maksimal terhadap cuaca. Pagar ini juga dilengkapi dengan sistem penguncian otomatis pada pintu pagar.",
+        image: "https://images.unsplash.com/photo-1577999528440-b7a6ef2cbfd9?w=600&h=450&fit=crop",
+        date: "Agustus 2024",
+        location: "Surabaya, Jawa Timur"
+      },
+      {
+        id: 6,
+        title: "Lemari Pakaian Kustom",
+        category: "Pengrajin Kayu",
+        serviceType: "Furniture Kustom",
+        shortDesc: "Lemari pakaian built-in dengan sistem sliding door dan pencahayaan LED otomatis.",
+        fullDesc: "Lemari pakaian kustom ini didesain sesuai dengan ukuran ruangan klien (lebar 3m x tinggi 2.5m). Memiliki 4 pintu sliding dengan kombinasi warna putih dan kayu natural. Bagian dalam dilengkapi dengan rak adjustable, laci tersembunyi, dan gantungan baju double layer. Sistem pencahayaan LED menyala otomatis saat pintu dibuka. Proses pengerjaan meliputi pengukuran presisi, fabrikasi, dan instalasi di lokasi selama 3 hari.",
+        image: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=600&h=450&fit=crop",
+        date: "Juli 2024",
+        location: "Bandung, Jawa Barat"
+      }
+    ];
 
-            if (text === '') return;
+    // DOM Elements
+    let currentProject = null;
+    let currentModal = null;
 
-            const task = {
-                id: Date.now(),
-                text: text,
-                completed: false,
-                priority: currentPriority,
-                createdAt: new Date().toLocaleString('id-ID')
-            };
-
-            tasks.unshift(task);
-            input.value = '';
-            saveTasks();
-            renderTasks();
-        }
-
-        function toggleTask(id) {
-            const task = tasks.find(t => t.id === id);
-            if (task) {
-                task.completed = !task.completed;
-                saveTasks();
-                renderTasks();
-            }
-        }
-
-        function deleteTask(id) {
-            tasks = tasks.filter(t => t.id !== id);
-            saveTasks();
-            renderTasks();
-        }
-
-        function filterTasks(filter) {
-            currentFilter = filter;
-            document.querySelectorAll('.filter-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            event.target.classList.add('active');
-            renderTasks();
-        }
-
-        function renderTasks() {
-            const container = document.getElementById('tasksList');
-
-            let filteredTasks = tasks;
-
-            if (currentFilter === 'active') {
-                filteredTasks = tasks.filter(t => !t.completed);
-            } else if (currentFilter === 'completed') {
-                filteredTasks = tasks.filter(t => t.completed);
-            } else if (['high', 'medium', 'low'].includes(currentFilter)) {
-                filteredTasks = tasks.filter(t => t.priority === currentFilter);
-            }
-
-            if (filteredTasks.length === 0) {
-                container.innerHTML = `
-          <div class="empty-state">
-            <div class="empty-icon">📋</div>
-            <h3>Tidak ada tugas</h3>
-            <p>Mulai tambahkan tugas baru untuk memulai!</p>
+    // Function to render portfolio cards using .map()
+    function renderPortfolio(filterText = '') {
+      const gallery = document.getElementById('portfolioGallery');
+      if (!gallery) return;
+      
+      const filteredData = portfolioData.filter(item => {
+        const searchTerm = filterText.toLowerCase();
+        return item.title.toLowerCase().includes(searchTerm) ||
+               item.category.toLowerCase().includes(searchTerm) ||
+               item.serviceType.toLowerCase().includes(searchTerm) ||
+               item.shortDesc.toLowerCase().includes(searchTerm);
+      });
+      
+      if (filteredData.length === 0) {
+        gallery.innerHTML = `
+          <div class="col-12">
+            <div class="no-results">
+                              <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem; display: block; color: #ccc;"></i>
+              <p>Tidak ada proyek yang ditemukan untuk pencarian</p>
+            </div>
           </div>
         `;
-            } else {
-                container.innerHTML = filteredTasks.map(task => `
-          <div class="task-item ${task.priority}">
-            <div class="task-checkbox ${task.completed ? 'checked' : ''}" onclick="toggleTask(${task.id})">
-              ${task.completed ? '✓' : ''}
-            </div>
-            <div class="task-content">
-              <div class="task-text ${task.completed ? 'completed' : ''}">${task.text}</div>
-              <div class="task-meta">
-                <span class="task-time">🕒 ${task.createdAt}</span>
-                <span>📌 ${task.priority === 'high' ? 'Tinggi' : task.priority === 'medium' ? 'Sedang' : 'Rendah'}</span>
+        return;
+      }
+      
+      // Using .map() to generate HTML
+      const cardsHTML = filteredData.map((item, index) => {
+        return `
+          <div class="col-md-6 col-lg-4">
+            <div class="portfolio-card" onclick="showProjectDetail(${item.id})">
+              <div class="card-image-wrapper">
+                <img src="${item.image}" alt="${item.title}" class="card-image" loading="lazy">
+                <span class="card-category">${item.category}</span>
+              </div>
+              <div class="card-content">
+                <h3 class="card-title">${item.title}</h3>
+                <p class="card-description">${item.shortDesc.substring(0, 80)}...</p>
+                <div class="card-footer-info">
+                  <span class="card-service-type">${item.serviceType}</span>
+                  <span><i class="far fa-calendar-alt" style="margin-right: 4px;"></i> ${item.date}</span>
+                </div>
               </div>
             </div>
-            <div class="task-actions">
-              <button class="btn-icon btn-delete" onclick="deleteTask(${task.id})">🗑️</button>
-            </div>
           </div>
-        `).join('');
-            }
+        `;
+      }).join('');
+      
+      gallery.innerHTML = cardsHTML;
+    }
 
-            updateStats();
-        }
+    // Function to show project detail in modal
+    function showProjectDetail(projectId) {
+      const project = portfolioData.find(p => p.id === projectId);
+      if (!project) return;
+      
+      currentProject = project;
+      
+      const modalBody = document.getElementById('modalBody');
+      if (!modalBody) return;
+      
+      modalBody.innerHTML = `
+        <img src="${project.image}" alt="${project.title}" class="modal-project-image">
+        <h5 class="mb-3">${project.title}</h5>
+        <p class="modal-project-description">${project.fullDesc}</p>
+        <div class="modal-project-meta">
+          <p><strong>Kategori:</strong> ${project.category}</p>
+          <p><strong>Jenis Jasa:</strong> ${project.serviceType}</p>
+          <p><strong>Tanggal Selesai:</strong> ${project.date}</p>
+          <p><strong>Lokasi:</strong> ${project.location}</p>
+        </div>
+      `;
+      
+      // Initialize and show modal
+      if (currentModal) {
+        currentModal.dispose();
+      }
+      
+      const modalElement = document.getElementById('projectModal');
+      currentModal = new bootstrap.Modal(modalElement);
+      currentModal.show();
+      
+      // Update WhatsApp button in modal
+      const waBtn = document.getElementById('modalWhatsAppBtn');
+      if (waBtn) {
+        waBtn.onclick = () => sendWhatsApp(project.title);
+      }
+    }
 
-        function updateStats() {
-            const total = tasks.length;
-            const completed = tasks.filter(t => t.completed).length;
-            const progress = total > 0 ? (completed / total) * 100 : 0;
+    // WhatsApp Integration function
+    function sendWhatsApp(projectName) {
+      const message = `Halo, saya tertarik dengan hasil pengerjaan "${projectName}" yang saya lihat di NandurKarya. Saya ingin berkonsultasi mengenai jasa serupa.`;
+      const encodedMessage = encodeURIComponent(message);
+      // Empty phone number - user will select their contact
+      const phoneNumber = "";
+      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+      window.open(whatsappUrl, '_blank');
+    }
 
-            document.getElementById('totalTasks').textContent = total;
-            document.getElementById('completedTasks').textContent = completed;
-            document.getElementById('progressBar').style.width = progress + '%';
-        }
+    // Search Feature functionality
+    function initSearch() {
+      const searchInput = document.getElementById('searchInput');
+      if (!searchInput) return;
+      
+      let debounceTimer;
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => {
+          renderPortfolio(e.target.value);
+        }, 300);
+      });
+    }
 
-        loadTasks();
+    // Initialize everything when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      renderPortfolio();
+      initSearch();
+      
+      // Close modal handler
+      const modalElement = document.getElementById('projectModal');
+      if (modalElement) {
+        modalElement.addEventListener('hidden.bs.modal', () => {
+          if (currentModal) {
+            currentModal.dispose();
+            currentModal = null;
+          }
+        });
+      }
+    });
 
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./service-worker.js')
-                    .then(() => console.log('Service Worker registered'))
-                    // kalo json berhasil akan ada worker register atau tidak, untuk cek bisa di klik app lalu klik inspect lanjut issus lalu klik console
-                    .catch(err => console.error('Service Worker error:', err));
-            });
-        }
-    </script>
+    // Expose functions to global scope for onclick events
+    window.showProjectDetail = showProjectDetail;
+    window.sendWhatsApp = sendWhatsApp;
 
+    // Service Worker Registration (from original template)
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./service-worker.js')
+        .then(() => console.log('SW registered!'))
+        .catch(err => console.error('SW gagal:', err));
+    }
+  </script>
 </body>
 
 </html>
