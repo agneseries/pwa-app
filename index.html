@@ -1,37 +1,17 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="theme-color" content="#6B5B95" />
+  <meta name="theme-color" content="#E8B4BB" />
   <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="icons/Logo1.png" type="image/png" />
-  <title>NandurKarya - Portofolio Pengrajin Kustom</title>
-  
-  <!-- Bootstrap 5 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Google Fonts Poppins -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Font Awesome 6 -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23E8B4BB'/%3E%3Ctext x='50' y='67' font-size='50' text-anchor='middle' fill='white' font-family='Arial'%3ER%3C/text%3E%3C/svg%3E" type="image/png" />
+  <title>Rutin — Daily Self-Love Tracker</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --bg-offwhite: #F8F9FA;
-      --card-white: #FFFFFF;
-      --soft-lavender: #E6E6FA;
-      --lavender-hover: #D8D8F0;
-      --primary-purple: #6B5B95;
-      --primary-dark: #5A4A7A;
-      --text-dark: #2C2C2C;
-      --text-gray: #6C6C6C;
-      --border-light: #E5E5E5;
-    }
-
     * {
       margin: 0;
       padding: 0;
@@ -39,634 +19,822 @@
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--bg-offwhite);
-      color: var(--text-dark);
-      line-height: 1.6;
+      font-family: 'Quicksand', sans-serif;
+      background-color: #F8E8E1;
+      color: #A67B81;
+      padding-bottom: 0;
     }
 
-    /* Header Styles */
-    .header {
-      background: linear-gradient(135deg, var(--primary-purple) 0%, var(--primary-dark) 100%);
-      color: white;
-      padding: 3rem 0 2.5rem;
-      margin-bottom: 2rem;
-      position: relative;
-      overflow: hidden;
+    :root {
+      --primary: #E8B4BB;
+      --secondary: #FAD6DA;
+      --bg: #F8E8E1;
+      --text: #A67B81;
+      --card-bg: #FFFFFF;
+      --shadow: 0 12px 28px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.02);
+      --radius: 28px;
+      --radius-xl: 36px;
     }
 
-    .header::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -10%;
-      width: 300px;
-      height: 300px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 50%;
-    }
-
-    .header::after {
-      content: '';
-      position: absolute;
-      bottom: -30%;
-      left: -5%;
-      width: 200px;
-      height: 200px;
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 50%;
-    }
-
-    .header-content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .brand h1 {
-      font-size: 2.5rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.5px;
-    }
-
-    .brand p {
-      font-size: 1rem;
-      font-weight: 300;
-      opacity: 0.9;
-      margin-bottom: 0;
-    }
-
-    /* Search Section */
-    .search-section {
-      margin-bottom: 2.5rem;
-    }
-
-    .search-wrapper {
-      position: relative;
+    .app-container {
       max-width: 500px;
       margin: 0 auto;
+      background-color: var(--bg);
+      min-height: 100vh;
+      position: relative;
     }
 
-    .search-icon {
-      position: absolute;
-      left: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-gray);
-      font-size: 1rem;
+    .page {
+      display: none;
+      padding: 24px 20px 90px;
+      animation: fadeIn 0.25s ease;
     }
 
-    .search-input {
-      width: 100%;
-      padding: 0.9rem 1rem 0.9rem 2.8rem;
-      border: 2px solid var(--border-light);
-      border-radius: 50px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 0.95rem;
-      transition: all 0.3s ease;
-      background: var(--card-white);
+    .page.active-page {
+      display: block;
     }
 
-    .search-input:focus {
-      outline: none;
-      border-color: var(--primary-purple);
-      box-shadow: 0 0 0 3px rgba(107, 91, 149, 0.1);
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px);}
+      to { opacity: 1; transform: translateY(0);}
     }
 
-    /* Card Styles */
-    .portfolio-card {
-      background: var(--card-white);
-      border-radius: 16px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-      height: 100%;
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 500px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(12px);
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 16px 22px;
+      border-top: 1px solid rgba(232,180,187,0.3);
+      border-radius: 32px 32px 0 0;
+      z-index: 100;
+    }
+
+    .nav-item {
       display: flex;
       flex-direction: column;
+      align-items: center;
+      background: none;
+      border: none;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      font-size: 12px;
+      color: #C49BA2;
+      gap: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+      padding: 6px 16px;
+      border-radius: 40px;
     }
 
-    .portfolio-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+    .nav-item.active {
+      color: var(--primary);
+      background: rgba(232,180,187,0.2);
     }
 
-    .card-image-wrapper {
-      position: relative;
-      padding-top: 75%;
+    .nav-icon {
+      font-size: 22px;
+      font-weight: 500;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 22px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+      border: 1px solid #FFF0ED;
+    }
+
+    /* Progress Ring - menghadap ke depan (normal, tidak terbalik) */
+    .progress-ring-container {
+      text-align: center;
+      margin: 8px 0 20px;
+    }
+    
+    svg {
+      transform: rotate(0deg);
+    }
+
+    .checklist-category {
+      margin-bottom: 28px;
+    }
+
+    .category-title {
+      font-weight: 700;
+      font-size: 1.15rem;
+      margin-bottom: 12px;
+      color: #B3888F;
+      border-left: 4px solid var(--primary);
+      padding-left: 12px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #FCE9E4;
+    }
+
+    .check-item input {
+      width: 22px;
+      height: 22px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    .check-item label {
+      flex: 1;
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #755F64;
+    }
+
+    /* Workout dengan foto */
+    .workout-category {
+      margin-bottom: 32px;
+    }
+
+    .workout-header {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .workout-photo {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #FAD6DA, #F8E8E1);
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
       overflow: hidden;
-      background: #f0f0f0;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.05);
     }
 
-    .card-image {
-      position: absolute;
-      top: 0;
-      left: 0;
+    .workout-photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.3s ease;
+      border-radius: 30px;
     }
 
-    .portfolio-card:hover .card-image {
-      transform: scale(1.05);
+    .exercise-list {
+      background: #FFF8F5;
+      border-radius: 28px;
+      padding: 14px 20px;
     }
 
-    .card-category {
-      position: absolute;
-      top: 1rem;
-      right: 1rem;
-      color: var(--primary-dark);
-      padding: 0.3rem 0.8rem;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      backdrop-filter: blur(4px);
-      background: rgba(230, 230, 250, 0.95);
-    }
-
-    .card-content {
-      padding: 1.25rem;
-      flex: 1;
-    }
-
-    .card-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      color: var(--text-dark);
-    }
-
-    .card-description {
-      font-size: 0.85rem;
-      color: var(--text-gray);
-      margin-bottom: 1rem;
-      line-height: 1.5;
-    }
-
-    .card-footer-info {
+    .exercise-row {
       display: flex;
       justify-content: space-between;
-      align-items: center;
-      padding-top: 0.75rem;
-      border-top: 1px solid var(--border-light);
-      font-size: 0.75rem;
-      color: var(--text-gray);
-    }
-
-    .card-service-type {
-      background: var(--bg-offwhite);
-      padding: 0.2rem 0.6rem;
-      border-radius: 12px;
-      font-size: 0.7rem;
+      padding: 10px 0;
+      border-bottom: 1px dashed #F0D9D3;
+      font-size: 0.88rem;
       font-weight: 500;
     }
 
-    /* Modal Styles */
-    .modal-content {
-      border-radius: 20px;
+    /* Journal */
+    .journal-form {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    input, textarea, select {
+      font-family: 'Quicksand', sans-serif;
+      border: 1px solid #F0D9D3;
+      border-radius: 32px;
+      padding: 14px 18px;
+      background: white;
+      font-size: 0.9rem;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(232,180,187,0.2);
+    }
+
+    .mood-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .mood-btn {
+      background: #FEF2EF;
       border: none;
+      font-size: 1.8rem;
+      padding: 8px 16px;
+      border-radius: 60px;
+      cursor: pointer;
+      transition: all 0.2s;
     }
 
-    .modal-header {
-      border-bottom: 1px solid var(--border-light);
-      padding: 1.25rem 1.5rem;
+    .mood-btn.selected {
+      background: var(--primary);
+      transform: scale(1.02);
     }
 
-    .modal-title {
-      font-weight: 600;
-      color: var(--text-dark);
-    }
-
-    .modal-body {
-      padding: 1.5rem;
-    }
-
-    .modal-project-image {
-      width: 100%;
-      border-radius: 12px;
-      margin-bottom: 1.25rem;
-    }
-
-    .modal-project-description {
-      color: var(--text-gray);
-      margin-bottom: 1rem;
-      line-height: 1.7;
-    }
-
-    .modal-project-meta {
-      background: var(--bg-offwhite);
-      padding: 1rem;
-      border-radius: 12px;
-      margin-top: 1rem;
-    }
-
-    .modal-project-meta p {
-      margin-bottom: 0.5rem;
+    button {
+      background-color: var(--primary);
+      border: none;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-weight: 700;
+      font-family: 'Quicksand', sans-serif;
+      color: white;
+      cursor: pointer;
+      transition: 0.2s;
       font-size: 0.9rem;
     }
 
-    .modal-project-meta strong {
-      color: var(--text-dark);
+    .btn-outline {
+      background: white;
+      border: 1.5px solid var(--primary);
+      color: var(--primary);
     }
 
-    .modal-footer {
-      border-top: 1px solid var(--border-light);
-      padding: 1rem 1.5rem;
+    .journal-history {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
-    .btn-primary {
-      background: var(--primary-purple);
-      border: none;
-      padding: 0.6rem 1.25rem;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 500;
-      border-radius: 50px;
-      transition: all 0.2s ease;
+    .journal-card {
+      background: white;
+      border-radius: 32px;
+      padding: 18px;
+      border-left: 10px solid var(--primary);
+      box-shadow: var(--shadow);
+    }
+    
+    .journal-date {
+      font-size: 0.7rem;
+      color: #B28B92;
+      margin-top: 10px;
+      display: block;
     }
 
-    .btn-primary:hover {
-      background: var(--primary-dark);
-      transform: translateY(-2px);
+    .profile-info {
+      background: white;
+      border-radius: 32px;
+      padding: 22px;
+      margin-bottom: 24px;
     }
 
-    .btn-secondary {
-      background: var(--bg-offwhite);
-      border: 1px solid var(--border-light);
-      color: var(--text-dark);
-      padding: 0.6rem 1.25rem;
-      font-family: 'Poppins', sans-serif;
-      font-weight: 500;
-      border-radius: 50px;
+    .danger-zone {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 16px;
     }
 
-    .btn-secondary:hover {
-      background: var(--border-light);
-      color: var(--text-dark);
+    .welcome-container, .auth-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 32px 24px;
+      background: var(--bg);
     }
 
-    /* Footer */
-    .footer {
-      background: var(--primary-dark);
+    .logo-circle {
+      width: 90px;
+      height: 90px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      font-size: 48px;
+      font-weight: 700;
       color: white;
+      box-shadow: 0 12px 24px rgba(232,180,187,0.3);
+    }
+
+    .toggle-auth {
       text-align: center;
-      padding: 1.5rem 0;
-      margin-top: 3rem;
+      margin-top: 20px;
+    }
+    .toggle-auth span {
+      color: var(--primary);
+      font-weight: 700;
+      cursor: pointer;
     }
 
-    .footer p {
-      margin-bottom: 0;
-      font-size: 0.85rem;
-      opacity: 0.8;
+    h1, h2, h3 {
+      font-weight: 600;
+      color: #A26F78;
     }
 
-    /* Responsive Grid */
-    @media (max-width: 768px) {
-      .header {
-        padding: 2rem 0 1.5rem;
-      }
-      
-      .brand h1 {
-        font-size: 1.75rem;
-      }
-      
-      .brand p {
-        font-size: 0.85rem;
-      }
-      
-      .card-title {
-        font-size: 1rem;
-      }
-      
-      .gallery-section .row {
-        margin: 0;
-      }
-    }
-
-    @media (min-width: 768px) and (max-width: 992px) {
-      .portfolio-card {
-        font-size: 0.9rem;
-      }
-    }
-
-    /* Animation for cards */
-    .portfolio-card {
-      animation: fadeInUp 0.4s ease backwards;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* No results state */
-    .no-results {
+    .footer-note {
       text-align: center;
-      padding: 3rem;
-      color: var(--text-gray);
-      background: var(--card-white);
-      border-radius: 16px;
+      font-size: 0.7rem;
+      margin: 30px 0 10px;
+      opacity: 0.7;
     }
 
-    /* Custom scrollbar */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--bg-offwhite);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--primary-purple);
-      border-radius: 4px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--primary-dark);
-    }
+    button:active { transform: scale(0.97);}
+    .greeting { margin-bottom: 8px; }
   </style>
 </head>
-
 <body>
-  <header class="header">
-    <div class="container">
-      <div class="header-content">
-        <div class="brand">
-          <h1>NandurKarya</h1>
-          <p>Portofolio Digital Pengrajin Kustom</p>
-        </div>
-      </div>
+<div class="app-container" id="appRoot">
+  <!-- WELCOME SCREEN -->
+  <div id="welcomeSection" style="display: flex;">
+    <div class="welcome-container" style="text-align: center;">
+      <div class="logo-circle">R</div>
+      <h1 style="font-size: 2.2rem; margin-bottom: 8px;">Rutin</h1>
+      <p style="margin-bottom: 32px; color: #B28B92;">daily self-love tracker</p>
+      <button id="startBtn" style="padding: 14px 36px; font-size: 1.1rem;">Mulai Sekarang</button>
+      <div class="footer-note">kelola rutinitas dengan hati</div>
     </div>
-  </header>
+  </div>
 
-  <main class="main">
-    <div class="container">
-      <!-- Search Section -->
-      <section class="search-section">
-        <div class="search-wrapper">
-          <i class="fas fa-search search-icon"></i>
-          <input type="text" id="searchInput" class="search-input" placeholder="Cari proyek atau jasa...">
-        </div>
-      </section>
-
-      <!-- Gallery Container -->
-      <section class="gallery-section">
-        <div class="row g-4" id="portfolioGallery"></div>
-      </section>
-    </div>
-  </main>
-
-  <!-- Modal Detail -->
-  <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="projectModalLabel">Detail Proyek</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body" id="modalBody">
-          <!-- Dynamic content -->
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-          <button type="button" class="btn btn-primary" id="modalWhatsAppBtn">Hubungi via WhatsApp</button>
-        </div>
+  <!-- AUTH SECTION -->
+  <div id="authSection" style="display: none;">
+    <div class="auth-container">
+      <div class="card" style="text-align: center;">
+        <h2 style="margin-bottom: 8px;">🌸 Selamat Datang</h2>
+        <p style="margin-bottom: 24px;">daftar atau masuk ke akunmu</p>
+        <input type="text" id="authName" placeholder="Nama" autocomplete="off" style="margin-bottom: 12px; width:100%">
+        <input type="email" id="authEmail" placeholder="Email" autocomplete="off" style="margin-bottom: 12px; width:100%">
+        <input type="password" id="authPassword" placeholder="Kata Sandi" style="margin-bottom: 20px; width:100%">
+        <button id="authActionBtn" style="width:100%">Daftar / Masuk</button>
+        <div class="toggle-auth" id="authToggleText">Sudah punya akun? <span id="switchToLogin">Masuk</span></div>
       </div>
     </div>
   </div>
 
-  <footer class="footer">
-    <div class="container">
-      <p>2025 NandurKarya. Membangun Karya Pengrajin Indonesia.</p>
+  <!-- MAIN APP -->
+  <div id="mainApp" style="display:none">
+    <div class="page" id="homePage">
+      <div class="greeting"><h2>Halo, <span id="displayName"></span> <span style="font-size:1.2rem;">🌼</span></h2></div>
+      <p style="margin-bottom: 16px;">selesaikan checklist harianmu</p>
+      <div class="progress-ring-container">
+        <svg width="140" height="140" viewBox="0 0 140 140">
+          <circle cx="70" cy="70" r="60" fill="none" stroke="#FAD6DA" stroke-width="10" />
+          <circle id="progressCircle" cx="70" cy="70" r="60" fill="none" stroke="#E8B4BB" stroke-width="10" stroke-dasharray="377" stroke-dashoffset="377" stroke-linecap="round" />
+          <text id="progressPercent" x="70" y="80" text-anchor="middle" fill="#A67B81" font-size="22" font-weight="700" dy=".3em">0%</text>
+        </svg>
+      </div>
+      <div id="checklistContainer"></div>
     </div>
-  </footer>
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  
-  <script>
-    // Portfolio Data - 6 contoh proyek pengrajin kustom
-    const portfolioData = [
-      {
-        id: 1,
-        title: "Kanopi Minimalis Modern",
-        category: "Bengkel Las",
-        serviceType: "Arsitektur dan Konstruksi",
-        shortDesc: "Kanopi besi dengan desain minimalis modern, menggunakan material hollow hitam doff dan atap polycarbonate solid.",
-        fullDesc: "Proyek kanopi minimalis modern ini dikerjakan untuk klien perumahan di daerah Sleman. Dengan lebar 4 meter dan panjang 6 meter, kanopi ini didesain untuk menampung 2 mobil sekaligus. Material utama menggunakan besi hollow 4x4 dengan ketebalan 1.6mm, dicat dengan powder coating warna hitam doff untuk kesan elegan. Atap menggunakan polycarbonate solid 3mm yang tahan panas dan tidak mudah pecah. Pengerjaan memakan waktu 7 hari kerja, termasuk proses pengelasan, perakitan, dan finishing. Hasil akhir sangat memuaskan klien karena kokoh dan estetis.",
-        image: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&h=450&fit=crop",
-        date: "Desember 2024",
-        location: "Sleman, Yogyakarta"
-      },
-      {
-        id: 2,
-        title: "Kebaya Encim Brokat",
-        category: "Penjahit",
-        serviceType: "Fashion dan Busana",
-        shortDesc: "Kebaya encim modern dengan bahan brokat premium, dipadukan dengan kain batik tulis.",
-        fullDesc: "Kebaya encim ini dipesan untuk acara pernikahan adat Betawi. Menggunakan bahan brokat premium dengan motif bunga yang lembut, dipadukan dengan kain batik tulis khas Solo. Proses pembuatan memakan waktu 2 minggu dengan detail sulam tangan pada bagian kerah dan ujung lengan. Hasil akhir sangat memuaskan dengan fitting sempurna dan kenyamanan maksimal saat dikenakan.",
-        image: "https://images.unsplash.com/photo-1612198188061-c98c29a7a9fd?w=600&h=450&fit=crop",
-        date: "November 2024",
-        location: "Bantul, Yogyakarta"
-      },
-      {
-        id: 3,
-        title: "Meja Makan Solid Jati",
-        category: "Pengrajin Kayu",
-        serviceType: "Furniture Kustom",
-        shortDesc: "Meja makan dari kayu jati solid ukuran 160x90cm dengan finishing natural yang menonjolkan serat kayu asli.",
-        fullDesc: "Meja makan jati solid ini dibuat dari kayu jati grade A dengan umur pohon di atas 30 tahun. Proses pembuatan dilakukan secara manual dengan teknik sambungan kayu tradisional tanpa paku. Finishing menggunakan polyurethane clear coat yang aman untuk makanan. Meja ini memiliki ketahanan terhadap rayap dan perubahan cuaca. Dikombinasikan dengan 6 kursi jati dengan desain yang matching.",
-        image: "https://images.unsplash.com/photo-1530018604532-134f2ac969a8?w=600&h=450&fit=crop",
-        date: "Oktober 2024",
-        location: "Jepara, Jawa Tengah"
-      },
-      {
-        id: 4,
-        title: "Tas Selempang Kulit Vintage",
-        category: "Pengrajin Kulit",
-        serviceType: "Kerajinan Kulit",
-        shortDesc: "Tas selempang pria dari kulit sapi full grain dengan pewarnaan natural dan jahitan tangan detail.",
-        fullDesc: "Tas selempang ini dibuat menggunakan kulit sapi full grain pilihan yang diproses secara vegetable tanning. Setiap tas melalui proses pengecatan tangan dengan pewarna natural sehingga menghasilkan warna yang unik dan tidak sama persis antar produk. Terdapat 3 kompartemen utama dan 2 saku kecil untuk kartu dan handphone. Jahitan menggunakan benang lilin yang kuat dengan teknik saddle stitch yang terkenal tahan lama.",
-        image: "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?w=600&h=450&fit=crop",
-        date: "September 2024",
-        location: "Garut, Jawa Barat"
-      },
-      {
-        id: 5,
-        title: "Pagar Besi Tempa Minimalis",
-        category: "Bengkel Las",
-        serviceType: "Arsitektur dan Konstruksi",
-        shortDesc: "Pagar besi tempa dengan desain minimalis modern, dilengkapi ornamen geometris dan finishing anti karat.",
-        fullDesc: "Proyek pagar besi tempa untuk rumah minimalis 2 lantai ini memiliki panjang 12 meter dengan tinggi 1.5 meter. Desain menggabungkan garis vertikal bersih dengan ornamen geometris yang artistik. Setiap sambungan dilas dengan presisi dan dihaluskan sebelum proses pengecatan. Finishing menggunakan powder coating warna hitam matte dengan 3 lapis untuk ketahanan maksimal terhadap cuaca. Pagar ini juga dilengkapi dengan sistem penguncian otomatis pada pintu pagar.",
-        image: "https://images.unsplash.com/photo-1577999528440-b7a6ef2cbfd9?w=600&h=450&fit=crop",
-        date: "Agustus 2024",
-        location: "Surabaya, Jawa Timur"
-      },
-      {
-        id: 6,
-        title: "Lemari Pakaian Kustom",
-        category: "Pengrajin Kayu",
-        serviceType: "Furniture Kustom",
-        shortDesc: "Lemari pakaian built-in dengan sistem sliding door dan pencahayaan LED otomatis.",
-        fullDesc: "Lemari pakaian kustom ini didesain sesuai dengan ukuran ruangan klien (lebar 3m x tinggi 2.5m). Memiliki 4 pintu sliding dengan kombinasi warna putih dan kayu natural. Bagian dalam dilengkapi dengan rak adjustable, laci tersembunyi, dan gantungan baju double layer. Sistem pencahayaan LED menyala otomatis saat pintu dibuka. Proses pengerjaan meliputi pengukuran presisi, fabrikasi, dan instalasi di lokasi selama 3 hari.",
-        image: "https://images.unsplash.com/photo-1595428774223-ef52624120d2?w=600&h=450&fit=crop",
-        date: "Juli 2024",
-        location: "Bandung, Jawa Barat"
-      }
-    ];
+    <div class="page" id="workoutPage">
+      <h2>Gerakan Harian</h2>
+      <p style="margin-bottom: 18px;">ikuti instruksi & rasakan manfaatnya</p>
+      <div id="workoutContainer"></div>
+    </div>
 
-    // DOM Elements
-    let currentProject = null;
-    let currentModal = null;
-
-    // Function to render portfolio cards using .map()
-    function renderPortfolio(filterText = '') {
-      const gallery = document.getElementById('portfolioGallery');
-      if (!gallery) return;
-      
-      const filteredData = portfolioData.filter(item => {
-        const searchTerm = filterText.toLowerCase();
-        return item.title.toLowerCase().includes(searchTerm) ||
-               item.category.toLowerCase().includes(searchTerm) ||
-               item.serviceType.toLowerCase().includes(searchTerm) ||
-               item.shortDesc.toLowerCase().includes(searchTerm);
-      });
-      
-      if (filteredData.length === 0) {
-        gallery.innerHTML = `
-          <div class="col-12">
-            <div class="no-results">
-                              <i class="fas fa-search" style="font-size: 2rem; margin-bottom: 1rem; display: block; color: #ccc;"></i>
-              <p>Tidak ada proyek yang ditemukan untuk pencarian</p>
-            </div>
+    <div class="page" id="journalPage">
+      <h2>My Bestie Note</h2>
+      <div class="card">
+        <div class="journal-form">
+          <input type="text" id="journalTitle" placeholder="Judul catatan..." />
+          <textarea id="journalContent" rows="3" placeholder="Tulis perasaan, cerita, atau apapun..."></textarea>
+          <div><strong>Mood hari ini</strong></div>
+          <div class="mood-buttons" id="moodSelector">
+            <button type="button" data-mood="senang" class="mood-btn">😊</button>
+            <button type="button" data-mood="cinta" class="mood-btn">🥰</button>
+            <button type="button" data-mood="tenang" class="mood-btn">😌</button>
+            <button type="button" data-mood="sedih" class="mood-btn">😔</button>
+            <button type="button" data-mood="semangat" class="mood-btn">⚡</button>
           </div>
-        `;
+          <button id="saveJournalBtn">Simpan Jurnal</button>
+        </div>
+      </div>
+      <div id="journalHistoryList" class="journal-history"></div>
+    </div>
+
+    <div class="page" id="settingsPage">
+      <h2>Pengaturan</h2>
+      <div class="profile-info">
+        <p><strong>Nama:</strong> <span id="profileName"></span></p>
+        <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+      </div>
+      <div class="danger-zone">
+        <button id="logoutBtn" class="btn-outline" style="background:white">Keluar</button>
+        <button id="resetAllDataBtn" style="background:#D9B4B9">Reset Semua Data</button>
+      </div>
+      <div class="footer-note">Rutin — tumbuh setiap hari</div>
+    </div>
+
+    <div class="bottom-nav">
+      <button class="nav-item" data-nav="home"><span class="nav-icon">🏠</span><span>Home</span></button>
+      <button class="nav-item" data-nav="workout"><span class="nav-icon">🧘</span><span>Workout</span></button>
+      <button class="nav-item" data-nav="journal"><span class="nav-icon">📘</span><span>Journal</span></button>
+      <button class="nav-item" data-nav="settings"><span class="nav-icon">⚙️</span><span>Settings</span></button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---------- DATA ----------
+  const CHECKLIST_ITEMS = {
+    'Self-Care': [
+      "Minum air (8 gelas)", "Pakai sunscreen", "Skincare pagi", "Skincare malam", "Minum vitamin",
+      "Mandi air hangat", "Pakai body lotion", "Rapikan kuku", "Meditasi 5 menit", "Tidur < jam 11 malam"
+    ],
+    'Productivity': [
+      "Rapikan meja kerja", "Baca buku 15 menit", "Buat to-do list", "Cek email/tugas", "Belajar fokus 30 menit",
+      "Bersihkan file HP", "Siapkan baju besok", "Update jurnal progres", "Kurangi screen time", "Evaluasi target"
+    ],
+    'Housework': [
+      "Rapikan tempat tidur", "Cuci piring", "Menyapu kamar", "Buang sampah", "Menata lemari",
+      "Cuci baju", "Bersihkan cermin", "Lap debu jendela", "Ganti sprei", "Rapikan rak sepatu"
+    ]
+  };
+
+  // Data workout dengan foto unik (menggunakan emoji/karakter sebagai ilustrasi foto yang cantik)
+  const WORKOUT_DATA = [
+    { 
+      name: "Morning Stretch", 
+      photo: "🌅", 
+      bgGradient: "linear-gradient(135deg, #FFE9CE, #FFD9B5)",
+      exercises: ["Neck Tilt (10x)", "Shoulder Rolls (10x)", "Side Stretch (10x)", "Cat-Cow (10x)", "Standing Forward Fold (15s)", "Arm Circles (10x)", "Ankle Circles (10x)"] 
+    },
+    { 
+      name: "Period-Friendly", 
+      photo: "🌸", 
+      bgGradient: "linear-gradient(135deg, #FAD6DA, #F8C5CA)",
+      exercises: ["Child's Pose (30s)", "Knee to Chest (10x)", "Reclined Bound Angle (30s)", "Supine Twist (10x)", "Cobra Stretch (5x)", "Deep Breathing (10x)", "Legs up the Wall (1m)"] 
+    },
+    { 
+      name: "Bed Yoga", 
+      photo: "🛌", 
+      bgGradient: "linear-gradient(135deg, #E2E0F0, #D1CEE8)",
+      exercises: ["Forward Fold (10x)", "Spinal Twist (10x)", "Happy Baby Pose (30s)", "Seated Side Bend (10x)", "Neck Rotation (5x)", "Butterfly Stretch (15x)", "Savasana (2m)"] 
+    }
+  ];
+
+  let currentUser = null;
+  let usersDB = [];
+
+  function loadUsersFromStorage() {
+    const stored = localStorage.getItem("rutin_users_v2");
+    if(stored) usersDB = JSON.parse(stored);
+    else usersDB = [];
+  }
+
+  function saveUsersToStorage() {
+    localStorage.setItem("rutin_users_v2", JSON.stringify(usersDB));
+  }
+
+  function findUserByEmail(email) {
+    return usersDB.find(u => u.email === email);
+  }
+
+  function initUserData(user) {
+    if(!user.checklistState) {
+      let emptyState = {};
+      for(let cat in CHECKLIST_ITEMS) {
+        emptyState[cat] = new Array(CHECKLIST_ITEMS[cat].length).fill(false);
+      }
+      user.checklistState = emptyState;
+    }
+    if(!user.journals) user.journals = [];
+    return user;
+  }
+
+  function saveUser(user) {
+    const index = usersDB.findIndex(u => u.email === user.email);
+    if(index !== -1) usersDB[index] = user;
+    saveUsersToStorage();
+  }
+
+  function handleAuthRegisterOrLogin(name, email, password) {
+    if(!email || !password) return "Email dan sandi wajib diisi";
+    const existing = findUserByEmail(email);
+    if(existing) {
+      if(existing.password !== password) return "Password salah";
+      currentUser = existing;
+      initUserData(currentUser);
+      saveUser(currentUser);
+      return true;
+    } else {
+      if(!name) return "Nama harus diisi untuk pendaftaran";
+      const newUser = {
+        id: Date.now(),
+        name: name,
+        email: email,
+        password: password,
+        checklistState: null,
+        journals: []
+      };
+      initUserData(newUser);
+      usersDB.push(newUser);
+      saveUsersToStorage();
+      currentUser = newUser;
+      return true;
+    }
+  }
+
+  function getTotalChecked(user) {
+    let total = 0, possible = 0;
+    for(let cat in user.checklistState) {
+      const arr = user.checklistState[cat];
+      possible += arr.length;
+      total += arr.filter(v => v === true).length;
+    }
+    return { total, possible };
+  }
+
+  function updateProgressRing(percent) {
+    const circle = document.getElementById("progressCircle");
+    const text = document.getElementById("progressPercent");
+    if(circle && text) {
+      const radius = 60;
+      const circumference = 2 * Math.PI * radius;
+      const offset = circumference - (percent / 100) * circumference;
+      circle.style.strokeDasharray = `${circumference}`;
+      circle.style.strokeDashoffset = offset;
+      text.textContent = `${Math.round(percent)}%`;
+    }
+  }
+
+  function renderChecklist() {
+    if(!currentUser) return;
+    const container = document.getElementById("checklistContainer");
+    let html = "";
+    for(let [cat, items] of Object.entries(CHECKLIST_ITEMS)) {
+      const catState = currentUser.checklistState[cat];
+      html += `<div class="checklist-category"><div class="category-title">${cat}</div>`;
+      items.forEach((item, idx) => {
+        const isChecked = catState && catState[idx] === true;
+        html += `<div class="check-item"><input type="checkbox" data-cat="${cat}" data-idx="${idx}" ${isChecked ? "checked" : ""} /><label>${escapeHtml(item)}</label></div>`;
+      });
+      html += `</div>`;
+    }
+    container.innerHTML = html;
+    attachCheckboxEvents();
+    const { total, possible } = getTotalChecked(currentUser);
+    const percent = possible === 0 ? 0 : (total / possible) * 100;
+    updateProgressRing(percent);
+  }
+
+  function attachCheckboxEvents() {
+    document.querySelectorAll("#checklistContainer input[type=checkbox]").forEach(cb => {
+      cb.removeEventListener("change", handleCheckChange);
+      cb.addEventListener("change", handleCheckChange);
+    });
+  }
+
+  function handleCheckChange(e) {
+    const cb = e.target;
+    const cat = cb.dataset.cat;
+    const idx = parseInt(cb.dataset.idx);
+    if(currentUser && currentUser.checklistState[cat]) {
+      currentUser.checklistState[cat][idx] = cb.checked;
+      saveUser(currentUser);
+      const { total, possible } = getTotalChecked(currentUser);
+      const percent = possible === 0 ? 0 : (total / possible) * 100;
+      updateProgressRing(percent);
+    }
+  }
+
+  // Workout dengan foto ilustrasi yang menarik
+  function renderWorkout() {
+    const container = document.getElementById("workoutContainer");
+    let html = "";
+    WORKOUT_DATA.forEach(cat => {
+      html += `<div class="workout-category">
+        <div class="workout-header">
+          <div class="workout-photo" style="background: ${cat.bgGradient}; font-size: 42px; display: flex; align-items: center; justify-content: center;">${cat.photo}</div>
+          <h3>${cat.name}</h3>
+        </div>
+        <div class="exercise-list">`;
+      cat.exercises.forEach(ex => {
+        html += `<div class="exercise-row"><span>${escapeHtml(ex)}</span><span>✓</span></div>`;
+      });
+      html += `</div></div>`;
+    });
+    container.innerHTML = html;
+  }
+
+  // Journal dengan tanggal
+  let selectedMood = "senang";
+  function bindMoodSelector() {
+    document.querySelectorAll("#moodSelector .mood-btn").forEach(btn => {
+      btn.removeEventListener("click", moodHandler);
+      btn.addEventListener("click", moodHandler);
+    });
+  }
+  function moodHandler(e) {
+    document.querySelectorAll("#moodSelector .mood-btn").forEach(btn => btn.classList.remove("selected"));
+    e.currentTarget.classList.add("selected");
+    selectedMood = e.currentTarget.getAttribute("data-mood");
+  }
+
+  function formatDate(date) {
+    const d = new Date(date);
+    return `${d.getDate()} ${d.toLocaleString('id', { month: 'long' })} ${d.getFullYear()} • ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
+  }
+
+  function renderJournals() {
+    const container = document.getElementById("journalHistoryList");
+    if(!container || !currentUser) return;
+    const journals = currentUser.journals || [];
+    if(journals.length === 0) {
+      container.innerHTML = "<div class='card' style='text-align:center'>Belum ada catatan, tulis bestie note pertamamu ✨</div>";
+      return;
+    }
+    let moodColor = {
+      "senang": "#FEF0E7", "cinta": "#FDE8EC", "tenang": "#E6F0E8", "sedih": "#F1E2E4", "semangat": "#FEF1DD"
+    };
+    let moodEmojiMap = { "senang":"😊", "cinta":"🥰", "tenang":"😌", "sedih":"😔", "semangat":"⚡" };
+    let html = "";
+    journals.slice().reverse().forEach(j => {
+      const bg = moodColor[j.mood] || "#F8E8E1";
+      const emoji = moodEmojiMap[j.mood] || "😊";
+      html += `<div class="journal-card" style="background:${bg}; border-left-color:#E8B4BB;">
+        <div><strong>${escapeHtml(j.title)}</strong> <span style="float:right">${emoji}</span></div>
+        <p style="margin-top:8px; font-size:0.85rem">${escapeHtml(j.content)}</p>
+        <div class="journal-date">📅 ${formatDate(j.date)}</div>
+      </div>`;
+    });
+    container.innerHTML = html;
+  }
+
+  function saveJournal() {
+    const title = document.getElementById("journalTitle").value.trim();
+    const content = document.getElementById("journalContent").value.trim();
+    if(!title || !content) {
+      alert("Judul dan isi catatan harus diisi");
+      return;
+    }
+    const newEntry = {
+      id: Date.now(),
+      title,
+      content,
+      mood: selectedMood,
+      date: new Date().toISOString()
+    };
+    if(!currentUser.journals) currentUser.journals = [];
+    currentUser.journals.push(newEntry);
+    saveUser(currentUser);
+    document.getElementById("journalTitle").value = "";
+    document.getElementById("journalContent").value = "";
+    selectedMood = "senang";
+    document.querySelectorAll("#moodSelector .mood-btn").forEach(btn => btn.classList.remove("selected"));
+    const defaultBtn = document.querySelector("#moodSelector .mood-btn[data-mood='senang']");
+    if(defaultBtn) defaultBtn.classList.add("selected");
+    renderJournals();
+  }
+
+  function resetAllDataForCurrentUser() {
+    if(!currentUser) return;
+    for(let cat in CHECKLIST_ITEMS) {
+      currentUser.checklistState[cat] = new Array(CHECKLIST_ITEMS[cat].length).fill(false);
+    }
+    currentUser.journals = [];
+    saveUser(currentUser);
+    renderChecklist();
+    renderJournals();
+    alert("Semua checklist dan jurnal telah direset");
+  }
+
+  function updateProfileUI() {
+    if(currentUser) {
+      document.getElementById("displayName").innerText = currentUser.name.split(" ")[0];
+      document.getElementById("profileName").innerText = currentUser.name;
+      document.getElementById("profileEmail").innerText = currentUser.email;
+    }
+  }
+
+  function showPage(pageId) {
+    document.querySelectorAll(".page").forEach(p => p.classList.remove("active-page"));
+    document.getElementById(pageId + "Page").classList.add("active-page");
+    document.querySelectorAll(".nav-item").forEach(nav => {
+      if(nav.dataset.nav === pageId) nav.classList.add("active");
+      else nav.classList.remove("active");
+    });
+    if(pageId === "home") renderChecklist();
+    if(pageId === "workout") renderWorkout();
+    if(pageId === "journal") { renderJournals(); bindMoodSelector(); }
+    if(pageId === "settings") updateProfileUI();
+  }
+
+  function setupNav() {
+    document.querySelectorAll(".nav-item").forEach(btn => {
+      btn.addEventListener("click", () => showPage(btn.dataset.nav));
+    });
+  }
+
+  function logout() {
+    currentUser = null;
+    localStorage.removeItem("rutin_last_session");
+    document.getElementById("mainApp").style.display = "none";
+    document.getElementById("welcomeSection").style.display = "flex";
+    document.getElementById("authSection").style.display = "none";
+  }
+
+  function enterApp() {
+    if(currentUser) localStorage.setItem("rutin_last_session", currentUser.email);
+    document.getElementById("welcomeSection").style.display = "none";
+    document.getElementById("authSection").style.display = "none";
+    document.getElementById("mainApp").style.display = "block";
+    updateProfileUI();
+    renderChecklist();
+    renderWorkout();
+    renderJournals();
+    showPage("home");
+  }
+
+  let authMode = "register";
+  function updateAuthUI() {
+    const nameField = document.getElementById("authName");
+    const actionBtn = document.getElementById("authActionBtn");
+    if(authMode === "register") {
+      nameField.style.display = "block";
+      actionBtn.innerText = "Daftar";
+      document.getElementById("authToggleText").innerHTML = `Sudah punya akun? <span id="switchToLogin">Masuk</span>`;
+    } else {
+      nameField.style.display = "block";
+      actionBtn.innerText = "Masuk";
+      document.getElementById("authToggleText").innerHTML = `Belum punya akun? <span id="switchToLogin">Daftar</span>`;
+    }
+    const newToggle = document.getElementById("switchToLogin");
+    if(newToggle) newToggle.onclick = () => { authMode = (authMode === "register") ? "login" : "register"; updateAuthUI(); };
+  }
+
+  function handleAuthAction() {
+    const name = document.getElementById("authName").value.trim();
+    const email = document.getElementById("authEmail").value.trim();
+    const password = document.getElementById("authPassword").value;
+    if(authMode === "register" && !name) { alert("Nama harus diisi untuk pendaftaran"); return; }
+    const result = handleAuthRegisterOrLogin(name, email, password);
+    if(result === true) enterApp();
+    else alert(result);
+  }
+
+  function init() {
+    loadUsersFromStorage();
+    const lastSessionEmail = localStorage.getItem("rutin_last_session");
+    if(lastSessionEmail) {
+      const user = findUserByEmail(lastSessionEmail);
+      if(user) {
+        currentUser = user;
+        initUserData(currentUser);
+        enterApp();
         return;
       }
-      
-      // Using .map() to generate HTML
-      const cardsHTML = filteredData.map((item, index) => {
-        return `
-          <div class="col-md-6 col-lg-4">
-            <div class="portfolio-card" onclick="showProjectDetail(${item.id})">
-              <div class="card-image-wrapper">
-                <img src="${item.image}" alt="${item.title}" class="card-image" loading="lazy">
-                <span class="card-category">${item.category}</span>
-              </div>
-              <div class="card-content">
-                <h3 class="card-title">${item.title}</h3>
-                <p class="card-description">${item.shortDesc.substring(0, 80)}...</p>
-                <div class="card-footer-info">
-                  <span class="card-service-type">${item.serviceType}</span>
-                  <span><i class="far fa-calendar-alt" style="margin-right: 4px;"></i> ${item.date}</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        `;
-      }).join('');
-      
-      gallery.innerHTML = cardsHTML;
     }
+    document.getElementById("welcomeSection").style.display = "flex";
+    document.getElementById("authSection").style.display = "none";
+    document.getElementById("mainApp").style.display = "none";
+  }
 
-    // Function to show project detail in modal
-    function showProjectDetail(projectId) {
-      const project = portfolioData.find(p => p.id === projectId);
-      if (!project) return;
-      
-      currentProject = project;
-      
-      const modalBody = document.getElementById('modalBody');
-      if (!modalBody) return;
-      
-      modalBody.innerHTML = `
-        <img src="${project.image}" alt="${project.title}" class="modal-project-image">
-        <h5 class="mb-3">${project.title}</h5>
-        <p class="modal-project-description">${project.fullDesc}</p>
-        <div class="modal-project-meta">
-          <p><strong>Kategori:</strong> ${project.category}</p>
-          <p><strong>Jenis Jasa:</strong> ${project.serviceType}</p>
-          <p><strong>Tanggal Selesai:</strong> ${project.date}</p>
-          <p><strong>Lokasi:</strong> ${project.location}</p>
-        </div>
-      `;
-      
-      // Initialize and show modal
-      if (currentModal) {
-        currentModal.dispose();
-      }
-      
-      const modalElement = document.getElementById('projectModal');
-      currentModal = new bootstrap.Modal(modalElement);
-      currentModal.show();
-      
-      // Update WhatsApp button in modal
-      const waBtn = document.getElementById('modalWhatsAppBtn');
-      if (waBtn) {
-        waBtn.onclick = () => sendWhatsApp(project.title);
-      }
-    }
+  document.getElementById("startBtn")?.addEventListener("click", () => {
+    document.getElementById("welcomeSection").style.display = "none";
+    document.getElementById("authSection").style.display = "flex";
+    authMode = "register";
+    updateAuthUI();
+    document.getElementById("authName").value = "";
+    document.getElementById("authEmail").value = "";
+    document.getElementById("authPassword").value = "";
+  });
+  document.getElementById("authActionBtn")?.addEventListener("click", handleAuthAction);
+  document.getElementById("logoutBtn")?.addEventListener("click", logout);
+  document.getElementById("resetAllDataBtn")?.addEventListener("click", () => {
+    if(confirm("Hapus semua progres checklist dan jurnal? Data akun tetap tersimpan.")) resetAllDataForCurrentUser();
+  });
+  document.getElementById("saveJournalBtn")?.addEventListener("click", saveJournal);
+  
+  function escapeHtml(str) {
+    if(!str) return "";
+    return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m]));
+  }
 
-    // WhatsApp Integration function
-    function sendWhatsApp(projectName) {
-      const message = `Halo, saya tertarik dengan hasil pengerjaan "${projectName}" yang saya lihat di NandurKarya. Saya ingin berkonsultasi mengenai jasa serupa.`;
-      const encodedMessage = encodeURIComponent(message);
-      // Empty phone number - user will select their contact
-      const phoneNumber = "";
-      const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-      window.open(whatsappUrl, '_blank');
-    }
-
-    // Search Feature functionality
-    function initSearch() {
-      const searchInput = document.getElementById('searchInput');
-      if (!searchInput) return;
-      
-      let debounceTimer;
-      searchInput.addEventListener('input', (e) => {
-        clearTimeout(debounceTimer);
-        debounceTimer = setTimeout(() => {
-          renderPortfolio(e.target.value);
-        }, 300);
-      });
-    }
-
-    // Initialize everything when DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-      renderPortfolio();
-      initSearch();
-      
-      // Close modal handler
-      const modalElement = document.getElementById('projectModal');
-      if (modalElement) {
-        modalElement.addEventListener('hidden.bs.modal', () => {
-          if (currentModal) {
-            currentModal.dispose();
-            currentModal = null;
-          }
-        });
-      }
-    });
-
-    // Expose functions to global scope for onclick events
-    window.showProjectDetail = showProjectDetail;
-    window.sendWhatsApp = sendWhatsApp;
-
-    // Service Worker Registration (from original template)
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./service-worker.js')
-        .then(() => console.log('SW registered!'))
-        .catch(err => console.error('SW gagal:', err));
-    }
-  </script>
+  init();
+  setupNav();
+  setTimeout(() => {
+    const defMood = document.querySelector("#moodSelector .mood-btn[data-mood='senang']");
+    if(defMood) defMood.classList.add("selected");
+    selectedMood = "senang";
+  }, 100);
+</script>
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js')
+      .then(() => console.log('SW registered'))
+      .catch(err => console.error('SW gagal:', err));
+  }
+</script>
 </body>
-
 </html>
