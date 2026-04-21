@@ -112,7 +112,7 @@
       border: 1px solid #FFF0ED;
     }
 
-    /* Progress Ring - menghadap ke depan (normal, tidak terbalik) */
+    /* Progress Ring - menghadap ke depan (normal) */
     .progress-ring-container {
       text-align: center;
       margin: 8px 0 20px;
@@ -180,13 +180,6 @@
       font-size: 36px;
       overflow: hidden;
       box-shadow: 0 6px 12px rgba(0,0,0,0.05);
-    }
-
-    .workout-photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 30px;
     }
 
     .exercise-list {
@@ -303,13 +296,21 @@
       margin-top: 16px;
     }
 
-    .welcome-container, .auth-container {
+    /* WELCOME SCREEN - FULL CENTERED - DIPERBAIKI */
+    .welcome-container {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
       min-height: 100vh;
+      width: 100%;
       padding: 32px 24px;
       background: var(--bg);
+      text-align: center;
+      margin: 0 auto;
+      position: relative;
+      left: 0;
+      right: 0;
     }
 
     .logo-circle {
@@ -325,6 +326,22 @@
       font-weight: 700;
       color: white;
       box-shadow: 0 12px 24px rgba(232,180,187,0.3);
+    }
+
+    /* AUTH SECTION - CENTERED */
+    .auth-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 32px 24px;
+      background: var(--bg);
+    }
+    
+    .auth-container .card {
+      width: 100%;
+      max-width: 400px;
     }
 
     .toggle-auth {
@@ -355,14 +372,14 @@
 </head>
 <body>
 <div class="app-container" id="appRoot">
-  <!-- WELCOME SCREEN -->
-  <div id="welcomeSection" style="display: flex;">
-    <div class="welcome-container" style="text-align: center;">
+  <!-- WELCOME SCREEN - FULLY CENTERED (DIPERBAIKI) -->
+  <div id="welcomeSection" style="display: flex; width: 100%; justify-content: center;">
+    <div class="welcome-container">
       <div class="logo-circle">R</div>
-      <h1 style="font-size: 2.2rem; margin-bottom: 8px;">Rutin</h1>
-      <p style="margin-bottom: 32px; color: #B28B92;">daily self-love tracker</p>
-      <button id="startBtn" style="padding: 14px 36px; font-size: 1.1rem;">Mulai Sekarang</button>
-      <div class="footer-note">kelola rutinitas dengan hati</div>
+      <h1 style="font-size: 2.2rem; margin-bottom: 8px; text-align: center;">Rutin</h1>
+      <p style="margin-bottom: 32px; color: #B28B92; text-align: center;">daily self-love tracker</p>
+      <button id="startBtn" style="padding: 14px 36px; font-size: 1.1rem; margin: 0 auto; display: inline-block;">Mulai Sekarang</button>
+      <div class="footer-note" style="text-align: center;">kelola rutinitas dengan hati</div>
     </div>
   </div>
 
@@ -461,7 +478,7 @@
     ]
   };
 
-  // Data workout dengan foto unik (menggunakan emoji/karakter sebagai ilustrasi foto yang cantik)
+  // Data workout dengan foto unik
   const WORKOUT_DATA = [
     { 
       name: "Morning Stretch", 
@@ -608,7 +625,6 @@
     }
   }
 
-  // Workout dengan foto ilustrasi yang menarik
   function renderWorkout() {
     const container = document.getElementById("workoutContainer");
     let html = "";
@@ -627,7 +643,6 @@
     container.innerHTML = html;
   }
 
-  // Journal dengan tanggal
   let selectedMood = "senang";
   function bindMoodSelector() {
     document.querySelectorAll("#moodSelector .mood-btn").forEach(btn => {
