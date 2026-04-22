@@ -1,23 +1,23 @@
 {
   "id": "./",
-  "name": "PWA Template Responsif",
-  "short_name": "PWA Demo",
-  "description": "Aplikasi PWA responsif untuk demonstrasi template dasar Progressive Web App dengan dukungan offline dan installable.",
+  "name": "Rutin - Ruang Tenang Harian",
+  "short_name": "Rutin",
+  "description": "Satu aplikasi untuk semua hal baik. Mulai hari dengan stretching, journaling, dan nikmati rutinitas yang lebih cantik dan tertata setiap harinya.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#4F46E5",
-  "theme_color": "#4F46E5",
+  "background_color": "#F8E8E1",
+  "theme_color": "##E8B4BB",
   "orientation": "portrait",
   "lang": "id",
   "icons": [
     {
-      "src": "icons/icon-192x192-A.png",
+      "src": "icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icons/icon-512x512-B.png",
+      "src": "icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
