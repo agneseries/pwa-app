@@ -147,6 +147,41 @@
       color: #B3888F;
       border-left: 4px solid var(--primary);
       padding-left: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .add-task-form {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .add-task-input {
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      border-radius: 20px;
+      width: 140px;
+    }
+
+    .add-task-btn {
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      background: var(--primary);
+      color: white;
+      border-radius: 20px;
+    }
+
+    .delete-task {
+      background: none;
+      border: none;
+      color: #D9B4B9;
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 0 8px;
     }
 
     .check-item {
@@ -211,7 +246,6 @@
       object-fit: cover;
     }
 
-    /* Class untuk icon workout */
     .workout-icon {
       width: 100%;
       height: auto;
@@ -236,9 +270,100 @@
       font-weight: 500;
     }
 
-    /* Sembunyikan tanda centang di workout */
     .exercise-row span:last-child {
       display: none;
+    }
+
+    .workout-clickable {
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .workout-clickable:hover {
+      background: #FCE9E4;
+      border-radius: 20px;
+    }
+
+    /* Toast Popup */
+    .toast-popup {
+      position: fixed;
+      top: 80px;
+      left: 50%;
+      transform: translateX(-50%) translateY(-100px);
+      background: var(--primary);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      z-index: 200;
+      opacity: 0;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      pointer-events: none;
+    }
+
+    .toast-popup.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* Modal */
+    .workout-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 300;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .workout-modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      border-radius: 32px;
+      padding: 24px;
+      max-width: 350px;
+      width: 90%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-content h3 {
+      margin-bottom: 16px;
+    }
+
+    .modal-step {
+      padding: 10px 0;
+      border-bottom: 1px solid #FCE9E4;
+      font-size: 0.85rem;
+    }
+
+    .close-modal {
+      margin-top: 16px;
+      width: 100%;
+    }
+
+    /* Notification Banner */
+    .notification-banner {
+      background: var(--secondary);
+      border-radius: 40px;
+      padding: 12px 20px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 500;
+      animation: slideDown 0.5s ease;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-20px);}
+      to { opacity: 1; transform: translateY(0);}
     }
 
     .journal-form {
@@ -409,7 +534,6 @@
 </head>
 
 <body>
-  <!-- Template asli - dipertahankan strukturnya -->
   <header class="header">
     <h1>PWA Template</h1>
     <p>Contoh aplikasi web progresif yang responsif</p>
@@ -418,9 +542,7 @@
   <main class="main">
     <section class="card">
       <h2>Selamat Datang!</h2>
-      <p>
-        Ini adalah template PWA responsif. Kamu bisa ubah teks, warna, dan layout-nya sesuai kebutuhan.
-      </p>
+      <p>Ini adalah template PWA responsif. Kamu bisa ubah teks, warna, dan layout-nya sesuai kebutuhan.</p>
       <button onclick="alert('PWA aktif!')">Tes Tombol</button>
     </section>
   </main>
@@ -430,8 +552,17 @@
     <p>© 2025 Anwar Fauzi</p>
   </footer>
 
-  <!-- Aplikasi Rutin - ditambahkan di bawah template asli -->
   <div class="app-container" id="appRoot">
+    <!-- Toast & Modal -->
+    <div id="toastPopup" class="toast-popup"></div>
+    <div id="workoutModal" class="workout-modal">
+      <div class="modal-content">
+        <h3 id="modalTitle"></h3>
+        <div id="modalSteps"></div>
+        <button class="close-modal" onclick="closeWorkoutModal()">Tutup</button>
+      </div>
+    </div>
+
     <!-- WELCOME SCREEN -->
     <div id="welcomeSection" style="display: flex; width: 100%; justify-content: center;">
       <div class="welcome-container">
@@ -461,6 +592,7 @@
     <!-- MAIN APP -->
     <div id="mainApp" style="display:none">
       <div class="page" id="homePage">
+        <div id="notificationBanner" class="notification-banner"></div>
         <div class="greeting"><h2>Halo, <span id="displayName"></span> <span style="font-size:1.2rem;">🌼</span></h2></div>
         <p style="margin-bottom: 16px;">selesaikan checklist harianmu</p>
         <div class="progress-ring-container">
@@ -475,7 +607,7 @@
 
       <div class="page" id="workoutPage">
         <h2>Gerakan Harian</h2>
-        <p style="margin-bottom: 18px;">ikuti instruksi & rasakan manfaatnya</p>
+        <p style="margin-bottom: 18px;">klik gerakan untuk melihat panduan lengkap</p>
         <div id="workoutContainer"></div>
       </div>
 
@@ -504,6 +636,14 @@
         <div class="profile-info">
           <p><strong>Nama:</strong> <span id="profileName"></span></p>
           <p><strong>Email:</strong> <span id="profileEmail"></span></p>
+          <p style="margin-top: 12px;"><strong>Tanggal Lahir:</strong></p>
+          <input type="date" id="birthDate" style="width:100%; margin-top: 5px;">
+          <p style="margin-top: 12px;"><strong>Self-Care Goal:</strong></p>
+          <select id="selfCareGoal" style="width:100%; margin-top: 5px;">
+            <option value="Mindset">Mindset</option>
+            <option value="Physical Health">Physical Health</option>
+            <option value="Productivity">Productivity</option>
+          </select>
         </div>
         <div class="danger-zone">
           <button id="logoutBtn" class="btn-outline" style="background:white">Keluar</button>
@@ -522,14 +662,13 @@
   </div>
 
   <script>
-    // ==================== SERVICE WORKER (template asli) ====================
+    // SERVICE WORKER
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('./service-worker.js')
         .then(() => console.log('SW registered!'))
         .catch(err => console.error('SW gagal:', err));
     }
 
-    // ==================== APLIKASI RUTIN ====================
     // DATA
     const CHECKLIST_ITEMS = {
       'Self-Care': [
@@ -552,89 +691,111 @@
       { name: "Bed Yoga", photo: "🛌", bgGradient: "linear-gradient(135deg, #E2E0F0, #D1CEE8)", imageFile: "icons/foto-bed-yoga.png", exercises: ["Forward Fold (10x)", "Spinal Twist (10x)", "Happy Baby Pose (30s)", "Seated Side Bend (10x)", "Neck Rotation (5x)", "Butterfly Stretch (15x)", "Savasana (2m)"] }
     ];
 
+    const WORKOUT_STEPS = {
+      "Neck Tilt": ["Duduk tegak", "Miringkan kepala ke kanan perlahan", "Tahan 5 detik", "Ganti ke arah kiri", "Ulangi 3 kali"],
+      "Shoulder Rolls": ["Tegakkan punggung", "Putar bahu ke depan 5 kali", "Putar bahu ke belakang 5 kali", "Tarik napas dalam", "Rilekskan lengan"],
+      "Side Stretch": ["Berdiri tegak", "Angkat satu tangan ke atas", "Miringkan badan ke sisi lawan", "Tahan 10 detik", "Ulangi sisi satunya"],
+      "Cat-Cow": ["Posisi merangkak", "Lengkungkan punggung ke atas (Cat)", "Lengkungkan ke bawah (Cow)", "Ikuti irama napas", "Ulangi 5 kali"],
+      "Forward Fold": ["Berdiri tegak", "Bungkukkan badan ke depan", "Usahakan tangan menyentuh lantai", "Biarkan kepala rileks", "Tahan 15 detik"],
+      "Child's Pose": ["Berlutut di lantai", "Duduk di atas tumit", "Turunkan dada ke paha", "Panjangkan tangan ke depan", "Bernapas dalam 30 detik"],
+      "Knee to Chest": ["Berbaring telentang", "Peluk satu lutut ke dada", "Tahan 10 detik", "Ganti kaki", "Lakukan perlahan"],
+      "Reclined Bound Angle": ["Berbaring telentang", "Satukan telapak kaki", "Buka lutut ke samping", "Tangan rileks di samping", "Tahan 30 detik"],
+      "Supine Twist": ["Berbaring telentang", "Tekuk lutut dan jatuhkan ke satu sisi", "Rentangkan tangan", "Rasakan tarikan di pinggang", "Tahan 15 detik"],
+      "Cobra Stretch": ["Berbaring tengkurap", "Letakkan telapak tangan di samping bahu", "Angkat dada perlahan", "Jaga bahu tetap rendah", "Tahan 5 detik"],
+      "Deep Breathing": ["Duduk bersila", "Letakkan tangan di perut", "Tarik napas lewat hidung (4 hitungan)", "Tahan (4 hitungan)", "Buang napas perlahan"],
+      "Legs up the Wall": ["Berbaring telentang dekat tembok", "Angkat kaki lurus ke atas menempel tembok", "Tahan posisi", "Rasakan relaksasi", "Lakukan 1 menit"],
+      "Happy Baby": ["Berbaring telentang", "Tekuk lutut ke arah dada", "Pegang telapak kaki dengan tangan", "Ayunkan badan ke kiri-kanan", "Lakukan 30 detik"],
+      "Spinal Twist": ["Berbaring telentang", "Tekuk satu lutut melewati kaki lainnya", "Menoleh ke arah berlawanan", "Tahan 10 detik", "Ulangi sisi lainnya"],
+      "Butterfly Stretch": ["Duduk tegak", "Satukan kedua telapak kaki", "Pegang kaki dan kepakkan lutut", "Dekatkan tumit ke tubuh", "Tahan 20 detik"],
+      "Seated Side Bend": ["Duduk bersila", "Letakkan satu tangan di kasur", "Rentangkan tangan lain melewati kepala", "Rasakan tarikan di samping tubuh", "Tahan 10 detik"],
+      "Savasana": ["Berbaring telentang sempurna", "Pejamkan mata", "Lemaskan seluruh otot dari ujung kaki ke kepala", "Fokus pada napas", "Lakukan selama 2 menit"]
+    };
+
+    const TOAST_MESSAGES = ["Hebat! Kamu keren! ✨", "Satu langkah lebih dekat ke self-love 🌸", "Bangga banget sama kamu! 🥰", "Luar biasa! Semangat terus! 💪", "Kamu hebat hari ini! 🌼"];
+    const DAILY_QUOTES = ["Jangan lupa minum air ya, Cantik! 💧", "Sudahkah kamu tersenyum hari ini? 😊", "Istirahat sejenak itu perlu, lho 🧘", "Kamu berhak merasa bangga pada dirimu sendiri ✨", "Hari ini adalah hari yang indah untuk bersyukur 🌸"];
+
     let currentUser = null;
     let usersDB = [];
+    let selectedMood = "senang";
 
-    function loadUsersFromStorage() {
-      const stored = localStorage.getItem("rutin_users_v2");
-      if(stored) usersDB = JSON.parse(stored);
-      else usersDB = [];
+    function loadUsersFromStorage() { const stored = localStorage.getItem("rutin_users_v2"); if(stored) usersDB = JSON.parse(stored); else usersDB = []; }
+    function saveUsersToStorage() { localStorage.setItem("rutin_users_v2", JSON.stringify(usersDB)); }
+    function findUserByEmail(email) { return usersDB.find(u => u.email === email); }
+    function escapeHtml(str) { if(!str) return ""; return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m])); }
+
+    function showToast() {
+      const toast = document.getElementById("toastPopup");
+      const randomMsg = TOAST_MESSAGES[Math.floor(Math.random() * TOAST_MESSAGES.length)];
+      toast.textContent = randomMsg;
+      toast.classList.add("show");
+      setTimeout(() => toast.classList.remove("show"), 2000);
     }
 
-    function saveUsersToStorage() {
-      localStorage.setItem("rutin_users_v2", JSON.stringify(usersDB));
+    function updateNotificationBanner() {
+      const banner = document.getElementById("notificationBanner");
+      if (banner) banner.innerHTML = DAILY_QUOTES[Math.floor(Math.random() * DAILY_QUOTES.length)];
     }
 
-    function findUserByEmail(email) {
-      return usersDB.find(u => u.email === email);
+    function checkAndResetDaily() {
+      if (!currentUser) return;
+      const today = new Date().toDateString();
+      const lastLogin = localStorage.getItem(`last_login_${currentUser.email}`);
+      if (lastLogin !== today) {
+        for (let cat in currentUser.checklistState) currentUser.checklistState[cat] = currentUser.checklistState[cat].map(() => false);
+        localStorage.setItem(`last_login_${currentUser.email}`, today);
+        saveUser(currentUser);
+        if (document.getElementById("homePage").classList.contains("active-page")) renderChecklist();
+      }
     }
+
+    function addCustomTask(category) {
+      const input = document.getElementById(`task_input_${category}`);
+      const newTask = input.value.trim();
+      if (!newTask) return;
+      if (!currentUser.customTasks) currentUser.customTasks = {};
+      if (!currentUser.customTasks[category]) currentUser.customTasks[category] = [];
+      currentUser.customTasks[category].push(newTask);
+      currentUser.checklistState[category].push(false);
+      saveUser(currentUser);
+      input.value = "";
+      renderChecklist();
+    }
+
+    function deleteCustomTask(category, idx) {
+      const originalLength = CHECKLIST_ITEMS[category]?.length || 0;
+      currentUser.checklistState[category].splice(originalLength + idx, 1);
+      currentUser.customTasks[category].splice(idx, 1);
+      saveUser(currentUser);
+      renderChecklist();
+    }
+
+    function openWorkoutModal(title) {
+      const modal = document.getElementById("workoutModal");
+      document.getElementById("modalTitle").textContent = title;
+      const steps = WORKOUT_STEPS[title] || ["Ikuti instruksi dengan perlahan", "Dengarkan tubuhmu", "Jangan memaksakan diri", "Bernapaslah dengan teratur", "Nikmati setiap gerakan"];
+      document.getElementById("modalSteps").innerHTML = steps.map((step, i) => `<div class="modal-step">${i+1}. ${step}</div>`).join("");
+      modal.classList.add("active");
+    }
+
+    function closeWorkoutModal() { document.getElementById("workoutModal").classList.remove("active"); }
 
     function initUserData(user) {
-      if(!user.checklistState) {
-        let emptyState = {};
-        for(let cat in CHECKLIST_ITEMS) {
-          emptyState[cat] = new Array(CHECKLIST_ITEMS[cat].length).fill(false);
-        }
-        user.checklistState = emptyState;
-      }
+      if(!user.checklistState) { let emptyState = {}; for(let cat in CHECKLIST_ITEMS) emptyState[cat] = new Array(CHECKLIST_ITEMS[cat].length).fill(false); user.checklistState = emptyState; }
       if(!user.journals) user.journals = [];
+      if(!user.customTasks) user.customTasks = {};
+      if(!user.birthDate) user.birthDate = "";
+      if(!user.selfCareGoal) user.selfCareGoal = "Mindset";
       return user;
     }
 
-    function saveUser(user) {
-      const index = usersDB.findIndex(u => u.email === user.email);
-      if(index !== -1) usersDB[index] = user;
-      saveUsersToStorage();
-    }
+    function saveUser(user) { const index = usersDB.findIndex(u => u.email === user.email); if(index !== -1) usersDB[index] = user; saveUsersToStorage(); }
 
-    function handleAuthRegisterOrLogin(name, email, password) {
-      if(!email || !password) return "Email dan sandi wajib diisi";
-      const existing = findUserByEmail(email);
-      if(existing) {
-        if(existing.password !== password) return "Password salah";
-        currentUser = existing;
-        initUserData(currentUser);
-        saveUser(currentUser);
-        return true;
-      } else {
-        if(!name) return "Nama harus diisi untuk pendaftaran";
-        const newUser = {
-          id: Date.now(),
-          name: name,
-          email: email,
-          password: password,
-          checklistState: null,
-          journals: []
-        };
-        initUserData(newUser);
-        usersDB.push(newUser);
-        saveUsersToStorage();
-        currentUser = newUser;
-        return true;
-      }
-    }
-
-    function getTotalChecked(user) {
-      let total = 0, possible = 0;
-      for(let cat in user.checklistState) {
-        const arr = user.checklistState[cat];
-        possible += arr.length;
-        total += arr.filter(v => v === true).length;
-      }
-      return { total, possible };
-    }
+    function getTotalChecked(user) { let total = 0, possible = 0; for(let cat in user.checklistState) { const arr = user.checklistState[cat]; possible += arr.length; total += arr.filter(v => v === true).length; } return { total, possible }; }
 
     function updateProgressRing(percent) {
       const circle = document.getElementById("progressCircle");
       const text = document.getElementById("progressPercent");
-      if(circle && text) {
-        const radius = 60;
-        const circumference = 2 * Math.PI * radius;
-        const offset = circumference - (percent / 100) * circumference;
-        circle.style.strokeDasharray = `${circumference}`;
-        circle.style.strokeDashoffset = offset;
-        text.textContent = `${Math.round(percent)}%`;
-      }
+      if(circle && text) { const radius = 60; const circumference = 2 * Math.PI * radius; const offset = circumference - (percent / 100) * circumference; circle.style.strokeDasharray = `${circumference}`; circle.style.strokeDashoffset = offset; text.textContent = `${Math.round(percent)}%`; }
     }
 
     function renderChecklist() {
@@ -643,99 +804,61 @@
       let html = "";
       for(let [cat, items] of Object.entries(CHECKLIST_ITEMS)) {
         const catState = currentUser.checklistState[cat];
-        html += `<div class="checklist-category"><div class="category-title">${cat}</div>`;
-        items.forEach((item, idx) => {
+        const customTasks = currentUser.customTasks?.[cat] || [];
+        const allItems = [...items, ...customTasks];
+        html += `<div class="checklist-category"><div class="category-title">${cat}<div class="add-task-form"><input type="text" id="task_input_${cat}" placeholder="Tambah task..." class="add-task-input"><button class="add-task-btn" onclick="addCustomTask('${cat}')">+</button></div></div>`;
+        allItems.forEach((item, idx) => {
+          const isCustom = idx >= items.length;
+          const actualIdx = isCustom ? idx - items.length : idx;
           const isChecked = catState && catState[idx] === true;
-          html += `<div class="check-item"><input type="checkbox" data-cat="${cat}" data-idx="${idx}" ${isChecked ? "checked" : ""} /><label>${escapeHtml(item)}</label></div>`;
+          html += `<div class="check-item"><input type="checkbox" data-cat="${cat}" data-idx="${idx}" ${isChecked ? "checked" : ""} /><label>${escapeHtml(item)}</label>${isCustom ? `<button class="delete-task" onclick="deleteCustomTask('${cat}', ${actualIdx})">🗑️</button>` : ''}</div>`;
         });
         html += `</div>`;
       }
       container.innerHTML = html;
       attachCheckboxEvents();
       const { total, possible } = getTotalChecked(currentUser);
-      const percent = possible === 0 ? 0 : (total / possible) * 100;
-      updateProgressRing(percent);
+      updateProgressRing(possible === 0 ? 0 : (total / possible) * 100);
     }
 
-    function attachCheckboxEvents() {
-      document.querySelectorAll("#checklistContainer input[type=checkbox]").forEach(cb => {
-        cb.removeEventListener("change", handleCheckChange);
-        cb.addEventListener("change", handleCheckChange);
-      });
-    }
+    function attachCheckboxEvents() { document.querySelectorAll("#checklistContainer input[type=checkbox]").forEach(cb => { cb.removeEventListener("change", handleCheckChange); cb.addEventListener("change", handleCheckChange); }); }
 
     function handleCheckChange(e) {
       const cb = e.target;
       const cat = cb.dataset.cat;
       const idx = parseInt(cb.dataset.idx);
-      if(currentUser && currentUser.checklistState[cat]) {
-        currentUser.checklistState[cat][idx] = cb.checked;
-        saveUser(currentUser);
-        const { total, possible } = getTotalChecked(currentUser);
-        const percent = possible === 0 ? 0 : (total / possible) * 100;
-        updateProgressRing(percent);
-      }
+      if(currentUser && currentUser.checklistState[cat]) { currentUser.checklistState[cat][idx] = cb.checked; saveUser(currentUser); const { total, possible } = getTotalChecked(currentUser); updateProgressRing(possible === 0 ? 0 : (total / possible) * 100); showToast(); }
     }
 
     function renderWorkout() {
       const container = document.getElementById("workoutContainer");
       let html = "";
       WORKOUT_DATA.forEach(cat => {
-        html += `<div class="workout-category">
-          <div class="workout-header">
-            <div class="workout-photo" style="background: ${cat.bgGradient};">${cat.photo}</div>
-            <h3>${cat.name}</h3>
-          </div>
-          <div class="workout-image-container">
-            <img class="workout-icon" src="${cat.imageFile}" alt="${cat.name}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'200\'%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'%23FAD6DA\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23A67B81\' font-family=\'Quicksand\' font-size=\'14\'%3E📷 ${cat.name}%3C/text%3E%3C/svg%3E'">
-          </div>
-          <div class="exercise-list">`;
-        cat.exercises.forEach(ex => {
-          html += `<div class="exercise-row"><span>${escapeHtml(ex)}</span><span></span></div>`;
+        html += `<div class="workout-category"><div class="workout-header"><div class="workout-photo" style="background: ${cat.bgGradient};">${cat.photo}</div><h3>${cat.name}</h3></div><div class="workout-image-container"><img class="workout-icon" src="${cat.imageFile}" alt="${cat.name}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'200\'%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'%23FAD6DA\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23A67B81\' font-family=\'Quicksand\' font-size=\'14\'%3E📷 ${cat.name}%3C/text%3E%3C/svg%3E'"></div><div class="exercise-list">`;
+        cat.exercises.forEach(ex => { 
+          let exerciseName = ex.split(' (')[0];
+          // Escape apostrof untuk onclick
+          const safeName = exerciseName.replace(/'/g, "\\'");
+          html += `<div class="exercise-row workout-clickable" onclick="openWorkoutModal('${safeName}')"><span>${escapeHtml(ex)}</span><span></span></div>`;
         });
         html += `</div></div>`;
       });
       container.innerHTML = html;
     }
 
-    let selectedMood = "senang";
-    function bindMoodSelector() {
-      document.querySelectorAll("#moodSelector .mood-btn").forEach(btn => {
-        btn.removeEventListener("click", moodHandler);
-        btn.addEventListener("click", moodHandler);
-      });
-    }
-    function moodHandler(e) {
-      document.querySelectorAll("#moodSelector .mood-btn").forEach(btn => btn.classList.remove("selected"));
-      e.currentTarget.classList.add("selected");
-      selectedMood = e.currentTarget.getAttribute("data-mood");
-    }
-
-    function formatDate(date) {
-      const d = new Date(date);
-      return `${d.getDate()} ${d.toLocaleString('id', { month: 'long' })} ${d.getFullYear()} • ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
-    }
+    function bindMoodSelector() { document.querySelectorAll("#moodSelector .mood-btn").forEach(btn => { btn.removeEventListener("click", moodHandler); btn.addEventListener("click", moodHandler); }); }
+    function moodHandler(e) { document.querySelectorAll("#moodSelector .mood-btn").forEach(btn => btn.classList.remove("selected")); e.currentTarget.classList.add("selected"); selectedMood = e.currentTarget.getAttribute("data-mood"); }
+    function formatDate(date) { const d = new Date(date); return `${d.getDate()} ${d.toLocaleString('id', { month: 'long' })} ${d.getFullYear()} • ${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`; }
 
     function renderJournals() {
       const container = document.getElementById("journalHistoryList");
       if(!container || !currentUser) return;
       const journals = currentUser.journals || [];
-      if(journals.length === 0) {
-        container.innerHTML = "<div class='card' style='text-align:center'>Belum ada catatan, tulis bestie note pertamamu ✨</div>";
-        return;
-      }
+      if(journals.length === 0) { container.innerHTML = "<div class='card' style='text-align:center'>Belum ada catatan, tulis bestie note pertamamu ✨</div>"; return; }
       let moodColor = { "senang": "#FEF0E7", "cinta": "#FDE8EC", "tenang": "#E6F0E8", "sedih": "#F1E2E4", "semangat": "#FEF1DD" };
       let moodEmojiMap = { "senang":"😊", "cinta":"🥰", "tenang":"😌", "sedih":"😔", "semangat":"⚡" };
       let html = "";
-      journals.slice().reverse().forEach(j => {
-        const bg = moodColor[j.mood] || "#F8E8E1";
-        const emoji = moodEmojiMap[j.mood] || "😊";
-        html += `<div class="journal-card" style="background:${bg}; border-left-color:#E8B4BB;">
-          <div><strong>${escapeHtml(j.title)}</strong> <span style="float:right">${emoji}</span></div>
-          <p style="margin-top:8px; font-size:0.85rem">${escapeHtml(j.content)}</p>
-          <div class="journal-date">📅 ${formatDate(j.date)}</div>
-        </div>`;
-      });
+      journals.slice().reverse().forEach(j => { const bg = moodColor[j.mood] || "#F8E8E1"; const emoji = moodEmojiMap[j.mood] || "😊"; html += `<div class="journal-card" style="background:${bg}; border-left-color:#E8B4BB;"><div><strong>${escapeHtml(j.title)}</strong> <span style="float:right">${emoji}</span></div><p style="margin-top:8px; font-size:0.85rem">${escapeHtml(j.content)}</p><div class="journal-date">📅 ${formatDate(j.date)}</div></div>`; });
       container.innerHTML = html;
     }
 
@@ -758,10 +881,9 @@
 
     function resetAllDataForCurrentUser() {
       if(!currentUser) return;
-      for(let cat in CHECKLIST_ITEMS) {
-        currentUser.checklistState[cat] = new Array(CHECKLIST_ITEMS[cat].length).fill(false);
-      }
+      for(let cat in CHECKLIST_ITEMS) currentUser.checklistState[cat] = new Array(CHECKLIST_ITEMS[cat].length).fill(false);
       currentUser.journals = [];
+      currentUser.customTasks = {};
       saveUser(currentUser);
       renderChecklist();
       renderJournals();
@@ -773,35 +895,44 @@
         document.getElementById("displayName").innerText = currentUser.name.split(" ")[0];
         document.getElementById("profileName").innerText = currentUser.name;
         document.getElementById("profileEmail").innerText = currentUser.email;
+        document.getElementById("birthDate").value = currentUser.birthDate || "";
+        document.getElementById("selfCareGoal").value = currentUser.selfCareGoal || "Mindset";
       }
     }
 
     function showPage(pageId) {
       document.querySelectorAll(".page").forEach(p => p.classList.remove("active-page"));
       document.getElementById(pageId + "Page").classList.add("active-page");
-      document.querySelectorAll(".nav-item").forEach(nav => {
-        if(nav.dataset.nav === pageId) nav.classList.add("active");
-        else nav.classList.remove("active");
-      });
-      if(pageId === "home") renderChecklist();
+      document.querySelectorAll(".nav-item").forEach(nav => { if(nav.dataset.nav === pageId) nav.classList.add("active"); else nav.classList.remove("active"); });
+      if(pageId === "home") { renderChecklist(); updateNotificationBanner(); }
       if(pageId === "workout") renderWorkout();
       if(pageId === "journal") { renderJournals(); bindMoodSelector(); }
       if(pageId === "settings") updateProfileUI();
     }
 
-    function setupNav() {
-      document.querySelectorAll(".nav-item").forEach(btn => {
-        btn.addEventListener("click", () => showPage(btn.dataset.nav));
-      });
+    function setupNav() { document.querySelectorAll(".nav-item").forEach(btn => { btn.addEventListener("click", () => showPage(btn.dataset.nav)); }); }
+
+    function handleAuthRegisterOrLogin(name, email, password) {
+      if(!email || !password) return "Email dan sandi wajib diisi";
+      const existing = findUserByEmail(email);
+      if(existing) {
+        if(existing.password !== password) return "Password salah";
+        currentUser = existing;
+        initUserData(currentUser);
+        saveUser(currentUser);
+        return true;
+      } else {
+        if(!name) return "Nama harus diisi untuk pendaftaran";
+        const newUser = { id: Date.now(), name, email, password, checklistState: null, journals: [] };
+        initUserData(newUser);
+        usersDB.push(newUser);
+        saveUsersToStorage();
+        currentUser = newUser;
+        return true;
+      }
     }
 
-    function logout() {
-      currentUser = null;
-      localStorage.removeItem("rutin_last_session");
-      document.getElementById("mainApp").style.display = "none";
-      document.getElementById("welcomeSection").style.display = "flex";
-      document.getElementById("authSection").style.display = "none";
-    }
+    function logout() { currentUser = null; localStorage.removeItem("rutin_last_session"); document.getElementById("mainApp").style.display = "none"; document.getElementById("welcomeSection").style.display = "flex"; document.getElementById("authSection").style.display = "none"; }
 
     function enterApp() {
       if(currentUser) localStorage.setItem("rutin_last_session", currentUser.email);
@@ -812,6 +943,8 @@
       renderChecklist();
       renderWorkout();
       renderJournals();
+      updateNotificationBanner();
+      checkAndResetDaily();
       showPage("home");
     }
 
@@ -819,15 +952,8 @@
     function updateAuthUI() {
       const nameField = document.getElementById("authName");
       const actionBtn = document.getElementById("authActionBtn");
-      if(authMode === "register") {
-        nameField.style.display = "block";
-        actionBtn.innerText = "Daftar";
-        document.getElementById("authToggleText").innerHTML = `Sudah punya akun? <span id="switchToLogin">Masuk</span>`;
-      } else {
-        nameField.style.display = "block";
-        actionBtn.innerText = "Masuk";
-        document.getElementById("authToggleText").innerHTML = `Belum punya akun? <span id="switchToLogin">Daftar</span>`;
-      }
+      if(authMode === "register") { nameField.style.display = "block"; actionBtn.innerText = "Daftar"; document.getElementById("authToggleText").innerHTML = `Sudah punya akun? <span id="switchToLogin">Masuk</span>`; }
+      else { nameField.style.display = "block"; actionBtn.innerText = "Masuk"; document.getElementById("authToggleText").innerHTML = `Belum punya akun? <span id="switchToLogin">Daftar</span>`; }
       const newToggle = document.getElementById("switchToLogin");
       if(newToggle) newToggle.onclick = () => { authMode = (authMode === "register") ? "login" : "register"; updateAuthUI(); };
     }
@@ -845,48 +971,29 @@
     function init() {
       loadUsersFromStorage();
       const lastSessionEmail = localStorage.getItem("rutin_last_session");
-      if(lastSessionEmail) {
-        const user = findUserByEmail(lastSessionEmail);
-        if(user) {
-          currentUser = user;
-          initUserData(currentUser);
-          enterApp();
-          return;
-        }
-      }
+      if(lastSessionEmail) { const user = findUserByEmail(lastSessionEmail); if(user) { currentUser = user; initUserData(currentUser); enterApp(); return; } }
       document.getElementById("welcomeSection").style.display = "flex";
       document.getElementById("authSection").style.display = "none";
       document.getElementById("mainApp").style.display = "none";
     }
 
-    document.getElementById("startBtn")?.addEventListener("click", () => {
-      document.getElementById("welcomeSection").style.display = "none";
-      document.getElementById("authSection").style.display = "flex";
-      authMode = "register";
-      updateAuthUI();
-      document.getElementById("authName").value = "";
-      document.getElementById("authEmail").value = "";
-      document.getElementById("authPassword").value = "";
-    });
+    // Event Listeners
+    document.getElementById("startBtn")?.addEventListener("click", () => { document.getElementById("welcomeSection").style.display = "none"; document.getElementById("authSection").style.display = "flex"; authMode = "register"; updateAuthUI(); document.getElementById("authName").value = ""; document.getElementById("authEmail").value = ""; document.getElementById("authPassword").value = ""; });
     document.getElementById("authActionBtn")?.addEventListener("click", handleAuthAction);
     document.getElementById("logoutBtn")?.addEventListener("click", logout);
-    document.getElementById("resetAllDataBtn")?.addEventListener("click", () => {
-      if(confirm("Hapus semua progres checklist dan jurnal? Data akun tetap tersimpan.")) resetAllDataForCurrentUser();
-    });
+    document.getElementById("resetAllDataBtn")?.addEventListener("click", () => { if(confirm("Hapus semua progres checklist dan jurnal? Data akun tetap tersimpan.")) resetAllDataForCurrentUser(); });
     document.getElementById("saveJournalBtn")?.addEventListener("click", saveJournal);
-    
-    function escapeHtml(str) {
-      if(!str) return "";
-      return str.replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m]));
-    }
+    document.getElementById("birthDate")?.addEventListener("change", (e) => { if(currentUser) { currentUser.birthDate = e.target.value; saveUser(currentUser); } });
+    document.getElementById("selfCareGoal")?.addEventListener("change", (e) => { if(currentUser) { currentUser.selfCareGoal = e.target.value; saveUser(currentUser); } });
+
+    window.addCustomTask = addCustomTask;
+    window.deleteCustomTask = deleteCustomTask;
+    window.openWorkoutModal = openWorkoutModal;
+    window.closeWorkoutModal = closeWorkoutModal;
 
     init();
     setupNav();
-    setTimeout(() => {
-      const defMood = document.querySelector("#moodSelector .mood-btn[data-mood='senang']");
-      if(defMood) defMood.classList.add("selected");
-      selectedMood = "senang";
-    }, 100);
+    setTimeout(() => { const defMood = document.querySelector("#moodSelector .mood-btn[data-mood='senang']"); if(defMood) defMood.classList.add("selected"); selectedMood = "senang"; }, 100);
   </script>
 </body>
 
