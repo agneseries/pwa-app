@@ -211,6 +211,15 @@
       object-fit: cover;
     }
 
+    /* Class untuk icon workout */
+    .workout-icon {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 24px;
+      object-fit: cover;
+    }
+
     .exercise-list {
       background: #FFF8F5;
       border-radius: 28px;
@@ -225,6 +234,11 @@
       border-bottom: 1px dashed #F0D9D3;
       font-size: 0.88rem;
       font-weight: 500;
+    }
+
+    /* Sembunyikan tanda centang di workout */
+    .exercise-row span:last-child {
+      display: none;
     }
 
     .journal-form {
@@ -533,9 +547,9 @@
     };
 
     const WORKOUT_DATA = [
-      { name: "Morning Stretch", photo: "🌅", bgGradient: "linear-gradient(135deg, #FFE9CE, #FFD9B5)", imageFile: "foto-morning-stretch.png", exercises: ["Neck Tilt (10x)", "Shoulder Rolls (10x)", "Side Stretch (10x)", "Cat-Cow (10x)", "Standing Forward Fold (15s)", "Arm Circles (10x)", "Ankle Circles (10x)"] },
-      { name: "Period-Friendly", photo: "🌸", bgGradient: "linear-gradient(135deg, #FAD6DA, #F8C5CA)", imageFile: "foto-period-friendly.png", exercises: ["Child's Pose (30s)", "Knee to Chest (10x)", "Reclined Bound Angle (30s)", "Supine Twist (10x)", "Cobra Stretch (5x)", "Deep Breathing (10x)", "Legs up the Wall (1m)"] },
-      { name: "Bed Yoga", photo: "🛌", bgGradient: "linear-gradient(135deg, #E2E0F0, #D1CEE8)", imageFile: "foto-bed-yoga.png", exercises: ["Forward Fold (10x)", "Spinal Twist (10x)", "Happy Baby Pose (30s)", "Seated Side Bend (10x)", "Neck Rotation (5x)", "Butterfly Stretch (15x)", "Savasana (2m)"] }
+      { name: "Morning Stretch", photo: "🌅", bgGradient: "linear-gradient(135deg, #FFE9CE, #FFD9B5)", imageFile: "icons/foto-morning-stretch.jpg", exercises: ["Neck Tilt (10x)", "Shoulder Rolls (10x)", "Side Stretch (10x)", "Cat-Cow (10x)", "Standing Forward Fold (15s)", "Arm Circles (10x)", "Ankle Circles (10x)"] },
+      { name: "Period-Friendly", photo: "🌸", bgGradient: "linear-gradient(135deg, #FAD6DA, #F8C5CA)", imageFile: "icons/foto-period-friendly.jpg", exercises: ["Child's Pose (30s)", "Knee to Chest (10x)", "Reclined Bound Angle (30s)", "Supine Twist (10x)", "Cobra Stretch (5x)", "Deep Breathing (10x)", "Legs up the Wall (1m)"] },
+      { name: "Bed Yoga", photo: "🛌", bgGradient: "linear-gradient(135deg, #E2E0F0, #D1CEE8)", imageFile: "icons/foto-bed-yoga.png", exercises: ["Forward Fold (10x)", "Spinal Twist (10x)", "Happy Baby Pose (30s)", "Seated Side Bend (10x)", "Neck Rotation (5x)", "Butterfly Stretch (15x)", "Savasana (2m)"] }
     ];
 
     let currentUser = null;
@@ -673,11 +687,11 @@
             <h3>${cat.name}</h3>
           </div>
           <div class="workout-image-container">
-            <img class="workout-image" src="${cat.imageFile}" alt="${cat.name}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'200\'%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'%23FAD6DA\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23A67B81\' font-family=\'Quicksand\' font-size=\'14\'%3E📷 ${cat.name}%3C/text%3E%3C/svg%3E'">
+            <img class="workout-icon" src="${cat.imageFile}" alt="${cat.name}" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%25\' height=\'200\'%3E%3Crect width=\'100%25\' height=\'100%25\' fill=\'%23FAD6DA\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' text-anchor=\'middle\' dy=\'.3em\' fill=\'%23A67B81\' font-family=\'Quicksand\' font-size=\'14\'%3E📷 ${cat.name}%3C/text%3E%3C/svg%3E'">
           </div>
           <div class="exercise-list">`;
         cat.exercises.forEach(ex => {
-          html += `<div class="exercise-row"><span>${escapeHtml(ex)}</span><span>✓</span></div>`;
+          html += `<div class="exercise-row"><span>${escapeHtml(ex)}</span><span></span></div>`;
         });
         html += `</div></div>`;
       });
