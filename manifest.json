@@ -24,12 +24,12 @@
   ],
   "screenshots": [
     {
-      "src": "icons/home-screenshoot.png",
+      "src": "icons/screenshoot-home.png",
       "sizes": "1080x1920",
       "type": "image/png"
     },
     {
-      "src": "icons/workout-screenshoot.png",
+      "src": "icons/screenshoot-workout.png",
       "sizes": "1080x1920",
       "type": "image/png"
     }
