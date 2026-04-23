@@ -1,16 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Offline</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Offline - Rutin</title>
     <link rel="stylesheet" href="assets/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Tambahan CSS untuk tampilan offline - sesuai konsep Rutin */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #F8E8E1;
+            color: #A67B81;
+            text-align: center;
+            padding: 2rem;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .offline-card {
+            max-width: 320px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 32px;
+            padding: 32px 24px;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.04), 0 0 0 1px rgba(0,0,0,0.02);
+            border: 1px solid #FFF0ED;
+        }
+
+        .logo-circle {
+            width: 70px;
+            height: 70px;
+            background: #E8B4BB;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 36px;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 8px 16px rgba(232,180,187,0.3);
+        }
+
+        h2 {
+            font-weight: 600;
+            color: #A26F78;
+            margin-bottom: 12px;
+            font-size: 1.5rem;
+        }
+
+        p {
+            color: #B28B92;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        button {
+            background-color: #E8B4BB;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-family: 'Quicksand', sans-serif;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.9rem;
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        .emoji {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+    </style>
 </head>
 
-<body style="text-align:center; padding:2rem;">
-    <h2>⚠️ Kamu sedang offline</h2>
-    <p>Silakan periksa koneksi internetmu.</p>
+<body>
+    <div class="offline-card">
+        <div class="logo-circle">R</div>
+        <div class="emoji">🌸</div>
+        <h2>⚠️ Kamu sedang offline</h2>
+        <p>Yuk sambungkan kembali koneksi internetmu agar bisa melanjutkan rutinitas self-love yang indah ✨</p>
+        <button onclick="location.reload()">Coba Lagi</button>
+    </div>
 </body>
 
 </html>
